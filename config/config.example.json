@@ -1,0 +1,17 @@
+{
+   "db": {
+      "host": "votre_host",
+      "port": 3306,
+      "dbname": "votre_nom_de_base_de_donnees",
+      "username": "votre_username",
+      "password": "votre_mdp"
+   },
+   "login": {
+      "admin": {
+         "salt": "verylongsalt"
+      },
+      "user": {
+         "salt": "anotherverylongsalt"
+      }
+   }
+}

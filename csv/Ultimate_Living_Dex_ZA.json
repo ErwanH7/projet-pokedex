@@ -1,0 +1,4412 @@
+[
+    {
+        "id": "1",
+        "columns": {
+            "Lumiose Dex": "1",
+            "Name": "Chikorita",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "2",
+        "columns": {
+            "Lumiose Dex": "2",
+            "Name": "Bayleef",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "3",
+        "columns": {
+            "Lumiose Dex": "3",
+            "Name": "Meganium ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Meganium ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "4",
+        "columns": {
+            "Lumiose Dex": "4",
+            "Name": "Tepig",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "5",
+        "columns": {
+            "Lumiose Dex": "5",
+            "Name": "Pignite",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "6",
+        "columns": {
+            "Lumiose Dex": "6",
+            "Name": "Emboar",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "7",
+        "columns": {
+            "Lumiose Dex": "7",
+            "Name": "Totodile",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "8",
+        "columns": {
+            "Lumiose Dex": "8",
+            "Name": "Croconaw",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "9",
+        "columns": {
+            "Lumiose Dex": "9",
+            "Name": "Feraligatr",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "10",
+        "columns": {
+            "Lumiose Dex": "10",
+            "Name": "Fletchling",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "11",
+        "columns": {
+            "Lumiose Dex": "11",
+            "Name": "Fletchinder",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "12",
+        "columns": {
+            "Lumiose Dex": "12",
+            "Name": "Talonflame",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "13",
+        "columns": {
+            "Lumiose Dex": "13",
+            "Name": "Bunnelby",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "14",
+        "columns": {
+            "Lumiose Dex": "14",
+            "Name": "Diggersby",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "15",
+        "columns": {
+            "Lumiose Dex": "15",
+            "Name": "Scatterbug",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "16",
+        "columns": {
+            "Lumiose Dex": "16",
+            "Name": "Spewpa",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "17",
+        "columns": {
+            "Lumiose Dex": "17",
+            "Name": "Vivillon Meadow Pattern",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Vivillon Marine Pattern",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "18",
+        "columns": {
+            "Lumiose Dex": "18",
+            "Name": "Weedle",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "19",
+        "columns": {
+            "Lumiose Dex": "19",
+            "Name": "Kakuna",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "20",
+        "columns": {
+            "Lumiose Dex": "20",
+            "Name": "Beedrill",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "21",
+        "columns": {
+            "Lumiose Dex": "21",
+            "Name": "Pidgey",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "22",
+        "columns": {
+            "Lumiose Dex": "22",
+            "Name": "Pidgeotto",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "23",
+        "columns": {
+            "Lumiose Dex": "23",
+            "Name": "Pidgeot",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "24",
+        "columns": {
+            "Lumiose Dex": "24",
+            "Name": "Mareep",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "25",
+        "columns": {
+            "Lumiose Dex": "25",
+            "Name": "Flaaffy",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "26",
+        "columns": {
+            "Lumiose Dex": "26",
+            "Name": "Ampharos",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "27",
+        "columns": {
+            "Lumiose Dex": "27",
+            "Name": "Patrat",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "28",
+        "columns": {
+            "Lumiose Dex": "28",
+            "Name": "Watchog",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "29",
+        "columns": {
+            "Lumiose Dex": "29",
+            "Name": "Budew",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "30",
+        "columns": {
+            "Lumiose Dex": "30",
+            "Name": "Roselia ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Roselia ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "31",
+        "columns": {
+            "Lumiose Dex": "31",
+            "Name": "Roserade ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Roserade ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "32",
+        "columns": {
+            "Lumiose Dex": "32",
+            "Name": "Magikarp ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Magikarp ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "33",
+        "columns": {
+            "Lumiose Dex": "33",
+            "Name": "Gyarados ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Gyarados ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "34",
+        "columns": {
+            "Lumiose Dex": "34",
+            "Name": "Binacle",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "35",
+        "columns": {
+            "Lumiose Dex": "35",
+            "Name": "Barbaracle",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "36",
+        "columns": {
+            "Lumiose Dex": "36",
+            "Name": "Staryu",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "37",
+        "columns": {
+            "Lumiose Dex": "37",
+            "Name": "Starmie",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "38",
+        "columns": {
+            "Lumiose Dex": "38",
+            "Name": "Flabébé Red Flower",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Flabébé White Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Flabébé Orange Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Flabébé Yellow Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Flabébé Blue Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "39",
+        "columns": {
+            "Lumiose Dex": "39",
+            "Name": "Floette Red Flower",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Floette White Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Floette Orange Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Floette Yellow Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Floette Blue Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "AZ's Floette",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "40",
+        "columns": {
+            "Lumiose Dex": "40",
+            "Name": "Florges Red Flower",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Florges White Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Florges Orange Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Florges Yellow Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Florges Blue Flower",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "41",
+        "columns": {
+            "Lumiose Dex": "41",
+            "Name": "Skiddo",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "42",
+        "columns": {
+            "Lumiose Dex": "42",
+            "Name": "Gogoat",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "43",
+        "columns": {
+            "Lumiose Dex": "43",
+            "Name": "Espurr",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "44",
+        "columns": {
+            "Lumiose Dex": "44",
+            "Name": "Meowstic ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Meowstic ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "45",
+        "columns": {
+            "Lumiose Dex": "45",
+            "Name": "Litleo",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "46",
+        "columns": {
+            "Lumiose Dex": "46",
+            "Name": "Pyroar ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Pyroar ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "47",
+        "columns": {
+            "Lumiose Dex": "47",
+            "Name": "Pancham",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "48",
+        "columns": {
+            "Lumiose Dex": "48",
+            "Name": "Pangoro",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "49",
+        "columns": {
+            "Lumiose Dex": "49",
+            "Name": "Trubbish",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "50",
+        "columns": {
+            "Lumiose Dex": "50",
+            "Name": "Garbodor",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "51",
+        "columns": {
+            "Lumiose Dex": "51",
+            "Name": "Dedenne",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "52",
+        "columns": {
+            "Lumiose Dex": "52",
+            "Name": "Pichu",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "53",
+        "columns": {
+            "Lumiose Dex": "53",
+            "Name": "Pikachu ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Pikachu ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "54",
+        "columns": {
+            "Lumiose Dex": "54",
+            "Name": "Raichu ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Raichu ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Alolan Raichu",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "55",
+        "columns": {
+            "Lumiose Dex": "55",
+            "Name": "Cleffa",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "56",
+        "columns": {
+            "Lumiose Dex": "56",
+            "Name": "Clefairy",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "57",
+        "columns": {
+            "Lumiose Dex": "57",
+            "Name": "Clefable",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "58",
+        "columns": {
+            "Lumiose Dex": "58",
+            "Name": "Spinarak",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "59",
+        "columns": {
+            "Lumiose Dex": "59",
+            "Name": "Ariados",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "60",
+        "columns": {
+            "Lumiose Dex": "60",
+            "Name": "Ekans",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "61",
+        "columns": {
+            "Lumiose Dex": "61",
+            "Name": "Arbok",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "62",
+        "columns": {
+            "Lumiose Dex": "62",
+            "Name": "Abra",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "63",
+        "columns": {
+            "Lumiose Dex": "63",
+            "Name": "Kadabra ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Kadabra ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "64",
+        "columns": {
+            "Lumiose Dex": "64",
+            "Name": "Alakazam ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Alakazam ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "65",
+        "columns": {
+            "Lumiose Dex": "65",
+            "Name": "Gastly",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "66",
+        "columns": {
+            "Lumiose Dex": "66",
+            "Name": "Haunter",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "67",
+        "columns": {
+            "Lumiose Dex": "67",
+            "Name": "Gengar",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "68",
+        "columns": {
+            "Lumiose Dex": "68",
+            "Name": "Venipede",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "69",
+        "columns": {
+            "Lumiose Dex": "69",
+            "Name": "Whirlipede",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "70",
+        "columns": {
+            "Lumiose Dex": "70",
+            "Name": "Scolipede",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "71",
+        "columns": {
+            "Lumiose Dex": "71",
+            "Name": "Honedge",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "72",
+        "columns": {
+            "Lumiose Dex": "72",
+            "Name": "Doublade",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "73",
+        "columns": {
+            "Lumiose Dex": "73",
+            "Name": "Aegislash",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "74",
+        "columns": {
+            "Lumiose Dex": "74",
+            "Name": "Bellsprout",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "75",
+        "columns": {
+            "Lumiose Dex": "75",
+            "Name": "Weepinbell",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "76",
+        "columns": {
+            "Lumiose Dex": "76",
+            "Name": "Victreebel",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "77",
+        "columns": {
+            "Lumiose Dex": "77",
+            "Name": "Pansage",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "78",
+        "columns": {
+            "Lumiose Dex": "78",
+            "Name": "Simisage",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "79",
+        "columns": {
+            "Lumiose Dex": "79",
+            "Name": "Pansear",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "80",
+        "columns": {
+            "Lumiose Dex": "80",
+            "Name": "Simisear",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "81",
+        "columns": {
+            "Lumiose Dex": "81",
+            "Name": "Panpour",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "82",
+        "columns": {
+            "Lumiose Dex": "82",
+            "Name": "Simipour",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "83",
+        "columns": {
+            "Lumiose Dex": "83",
+            "Name": "Meditite ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Meditite ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "84",
+        "columns": {
+            "Lumiose Dex": "84",
+            "Name": "Medicham ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Medicham ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "85",
+        "columns": {
+            "Lumiose Dex": "85",
+            "Name": "Electrike",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "86",
+        "columns": {
+            "Lumiose Dex": "86",
+            "Name": "Manectric",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "87",
+        "columns": {
+            "Lumiose Dex": "87",
+            "Name": "Ralts",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "88",
+        "columns": {
+            "Lumiose Dex": "88",
+            "Name": "Kirlia",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "89",
+        "columns": {
+            "Lumiose Dex": "89",
+            "Name": "Gardevoir",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "90",
+        "columns": {
+            "Lumiose Dex": "90",
+            "Name": "Gallade",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "91",
+        "columns": {
+            "Lumiose Dex": "91",
+            "Name": "Houndour",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "92",
+        "columns": {
+            "Lumiose Dex": "92",
+            "Name": "Houndoom ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Houndoom ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "93",
+        "columns": {
+            "Lumiose Dex": "93",
+            "Name": "Swablu",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "94",
+        "columns": {
+            "Lumiose Dex": "94",
+            "Name": "Altaria",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "95",
+        "columns": {
+            "Lumiose Dex": "95",
+            "Name": "Audino",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "96",
+        "columns": {
+            "Lumiose Dex": "96",
+            "Name": "Spritzee",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "97",
+        "columns": {
+            "Lumiose Dex": "97",
+            "Name": "Aromatisse",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "98",
+        "columns": {
+            "Lumiose Dex": "98",
+            "Name": "Swirlix",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "99",
+        "columns": {
+            "Lumiose Dex": "99",
+            "Name": "Slurpuff",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "100",
+        "columns": {
+            "Lumiose Dex": "100",
+            "Name": "Eevee ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Eevee ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "101",
+        "columns": {
+            "Lumiose Dex": "101",
+            "Name": "Vaporeon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "102",
+        "columns": {
+            "Lumiose Dex": "102",
+            "Name": "Jolteon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "103",
+        "columns": {
+            "Lumiose Dex": "103",
+            "Name": "Flareon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "104",
+        "columns": {
+            "Lumiose Dex": "104",
+            "Name": "Espeon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "105",
+        "columns": {
+            "Lumiose Dex": "105",
+            "Name": "Umbreon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "106",
+        "columns": {
+            "Lumiose Dex": "106",
+            "Name": "Leafeon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "107",
+        "columns": {
+            "Lumiose Dex": "107",
+            "Name": "Glaceon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "108",
+        "columns": {
+            "Lumiose Dex": "108",
+            "Name": "Sylveon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "109",
+        "columns": {
+            "Lumiose Dex": "109",
+            "Name": "Buneary",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "110",
+        "columns": {
+            "Lumiose Dex": "110",
+            "Name": "Lopunny",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "111",
+        "columns": {
+            "Lumiose Dex": "111",
+            "Name": "Shuppet",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "112",
+        "columns": {
+            "Lumiose Dex": "112",
+            "Name": "Banette",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "113",
+        "columns": {
+            "Lumiose Dex": "113",
+            "Name": "Vanillite",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "114",
+        "columns": {
+            "Lumiose Dex": "114",
+            "Name": "Vanillish",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "115",
+        "columns": {
+            "Lumiose Dex": "115",
+            "Name": "Vanilluxe",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "116",
+        "columns": {
+            "Lumiose Dex": "116",
+            "Name": "Numel",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "117",
+        "columns": {
+            "Lumiose Dex": "117",
+            "Name": "Camerupt",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "118",
+        "columns": {
+            "Lumiose Dex": "118",
+            "Name": "Hippopotas ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Hippopotas ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "119",
+        "columns": {
+            "Lumiose Dex": "119",
+            "Name": "Hippowdon ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Hippowdon ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "120",
+        "columns": {
+            "Lumiose Dex": "120",
+            "Name": "Drilbur",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "121",
+        "columns": {
+            "Lumiose Dex": "121",
+            "Name": "Excadrill",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "122",
+        "columns": {
+            "Lumiose Dex": "122",
+            "Name": "Sandile",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "123",
+        "columns": {
+            "Lumiose Dex": "123",
+            "Name": "Krokorok",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "124",
+        "columns": {
+            "Lumiose Dex": "124",
+            "Name": "Krookodile",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "125",
+        "columns": {
+            "Lumiose Dex": "125",
+            "Name": "Machop",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "126",
+        "columns": {
+            "Lumiose Dex": "126",
+            "Name": "Machoke",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "127",
+        "columns": {
+            "Lumiose Dex": "127",
+            "Name": "Machamp",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "128",
+        "columns": {
+            "Lumiose Dex": "128",
+            "Name": "Gible ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Gible ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "129",
+        "columns": {
+            "Lumiose Dex": "129",
+            "Name": "Gabite ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Gabite ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "130",
+        "columns": {
+            "Lumiose Dex": "130",
+            "Name": "Garchomp ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Garchomp ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "131",
+        "columns": {
+            "Lumiose Dex": "131",
+            "Name": "Carbink",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "132",
+        "columns": {
+            "Lumiose Dex": "132",
+            "Name": "Sableye",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "133",
+        "columns": {
+            "Lumiose Dex": "133",
+            "Name": "Mawile",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "134",
+        "columns": {
+            "Lumiose Dex": "134",
+            "Name": "Absol",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "135",
+        "columns": {
+            "Lumiose Dex": "135",
+            "Name": "Riolu",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "136",
+        "columns": {
+            "Lumiose Dex": "136",
+            "Name": "Lucario",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "137",
+        "columns": {
+            "Lumiose Dex": "137",
+            "Name": "Slowpoke",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Galarian Slowpoke",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "138",
+        "columns": {
+            "Lumiose Dex": "138",
+            "Name": "Slowbro",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Galarian Slowbro",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "139",
+        "columns": {
+            "Lumiose Dex": "139",
+            "Name": "Slowking",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Galarian Slowking",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "140",
+        "columns": {
+            "Lumiose Dex": "140",
+            "Name": "Carvanha",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "141",
+        "columns": {
+            "Lumiose Dex": "141",
+            "Name": "Sharpedo",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "142",
+        "columns": {
+            "Lumiose Dex": "142",
+            "Name": "Tynamo",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "143",
+        "columns": {
+            "Lumiose Dex": "143",
+            "Name": "Elektrik",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "144",
+        "columns": {
+            "Lumiose Dex": "144",
+            "Name": "Elektross",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "145",
+        "columns": {
+            "Lumiose Dex": "145",
+            "Name": "Dratini",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "146",
+        "columns": {
+            "Lumiose Dex": "146",
+            "Name": "Dragonair",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "147",
+        "columns": {
+            "Lumiose Dex": "147",
+            "Name": "Dragonite",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "148",
+        "columns": {
+            "Lumiose Dex": "148",
+            "Name": "Bulbasaur",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "149",
+        "columns": {
+            "Lumiose Dex": "149",
+            "Name": "Ivysaur",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "150",
+        "columns": {
+            "Lumiose Dex": "150",
+            "Name": "Venusaur ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Venusaur ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "151",
+        "columns": {
+            "Lumiose Dex": "151",
+            "Name": "Charmander",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "152",
+        "columns": {
+            "Lumiose Dex": "152",
+            "Name": "Charmeleon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "153",
+        "columns": {
+            "Lumiose Dex": "153",
+            "Name": "Charizard",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "154",
+        "columns": {
+            "Lumiose Dex": "154",
+            "Name": "Squirtle",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "155",
+        "columns": {
+            "Lumiose Dex": "155",
+            "Name": "Wartortle",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "156",
+        "columns": {
+            "Lumiose Dex": "156",
+            "Name": "Blastoise",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "157",
+        "columns": {
+            "Lumiose Dex": "157",
+            "Name": "Stunfisk",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Galarian Stunfisk",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "158",
+        "columns": {
+            "Lumiose Dex": "158",
+            "Name": "Furfrou Natural",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Heart Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Star Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Diamond Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou La Reine Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Kabuki Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Pharaoh Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Debutante Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Matron Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Furfrou Dandy Trim",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "159",
+        "columns": {
+            "Lumiose Dex": "159",
+            "Name": "Inkay",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "160",
+        "columns": {
+            "Lumiose Dex": "160",
+            "Name": "Malamar",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "161",
+        "columns": {
+            "Lumiose Dex": "161",
+            "Name": "Skrelp",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "162",
+        "columns": {
+            "Lumiose Dex": "162",
+            "Name": "Dragalge",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "163",
+        "columns": {
+            "Lumiose Dex": "163",
+            "Name": "Clauncher",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "164",
+        "columns": {
+            "Lumiose Dex": "164",
+            "Name": "Clawitzer",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "165",
+        "columns": {
+            "Lumiose Dex": "165",
+            "Name": "Goomy",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "166",
+        "columns": {
+            "Lumiose Dex": "166",
+            "Name": "Sliggoo",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "167",
+        "columns": {
+            "Lumiose Dex": "167",
+            "Name": "Goodra",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "168",
+        "columns": {
+            "Lumiose Dex": "168",
+            "Name": "Delibird",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "169",
+        "columns": {
+            "Lumiose Dex": "169",
+            "Name": "Snorunt",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "170",
+        "columns": {
+            "Lumiose Dex": "170",
+            "Name": "Glalie",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "171",
+        "columns": {
+            "Lumiose Dex": "171",
+            "Name": "Froslass",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "172",
+        "columns": {
+            "Lumiose Dex": "172",
+            "Name": "Snover ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Snover ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "173",
+        "columns": {
+            "Lumiose Dex": "173",
+            "Name": "Abomasnow ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Abomasnow ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "174",
+        "columns": {
+            "Lumiose Dex": "174",
+            "Name": "Bergmite",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "175",
+        "columns": {
+            "Lumiose Dex": "175",
+            "Name": "Avalugg",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "176",
+        "columns": {
+            "Lumiose Dex": "176",
+            "Name": "Scyther ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Scyther♀ ",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "177",
+        "columns": {
+            "Lumiose Dex": "177",
+            "Name": "Scizor ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Scizor ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "178",
+        "columns": {
+            "Lumiose Dex": "178",
+            "Name": "Pinsir",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "179",
+        "columns": {
+            "Lumiose Dex": "179",
+            "Name": "Heracross ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Heracross ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "180",
+        "columns": {
+            "Lumiose Dex": "180",
+            "Name": "Emolga",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "181",
+        "columns": {
+            "Lumiose Dex": "181",
+            "Name": "Hawlucha",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "182",
+        "columns": {
+            "Lumiose Dex": "182",
+            "Name": "Phantump",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "183",
+        "columns": {
+            "Lumiose Dex": "183",
+            "Name": "Trevenant",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "184",
+        "columns": {
+            "Lumiose Dex": "184",
+            "Name": "Scraggy",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "185",
+        "columns": {
+            "Lumiose Dex": "185",
+            "Name": "Scrafty",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "186",
+        "columns": {
+            "Lumiose Dex": "186",
+            "Name": "Noibat",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "187",
+        "columns": {
+            "Lumiose Dex": "187",
+            "Name": "Noivern",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "188",
+        "columns": {
+            "Lumiose Dex": "188",
+            "Name": "Klefki",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "189",
+        "columns": {
+            "Lumiose Dex": "189",
+            "Name": "Litwick",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "190",
+        "columns": {
+            "Lumiose Dex": "190",
+            "Name": "Lampent",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "191",
+        "columns": {
+            "Lumiose Dex": "191",
+            "Name": "Chandelure",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "192",
+        "columns": {
+            "Lumiose Dex": "192",
+            "Name": "Aerodactyl",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "193",
+        "columns": {
+            "Lumiose Dex": "193",
+            "Name": "Tyrunt",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "194",
+        "columns": {
+            "Lumiose Dex": "194",
+            "Name": "Tyrantrum",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "195",
+        "columns": {
+            "Lumiose Dex": "195",
+            "Name": "Amaura",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "196",
+        "columns": {
+            "Lumiose Dex": "196",
+            "Name": "Aurorus",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "197",
+        "columns": {
+            "Lumiose Dex": "197",
+            "Name": "Onix",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "198",
+        "columns": {
+            "Lumiose Dex": "198",
+            "Name": "Steelix ♂",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Steelix ♀",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "199",
+        "columns": {
+            "Lumiose Dex": "199",
+            "Name": "Aron",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "200",
+        "columns": {
+            "Lumiose Dex": "200",
+            "Name": "Lairon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "201",
+        "columns": {
+            "Lumiose Dex": "201",
+            "Name": "Aggron",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "202",
+        "columns": {
+            "Lumiose Dex": "202",
+            "Name": "Helioptile",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "203",
+        "columns": {
+            "Lumiose Dex": "203",
+            "Name": "Heliolisk",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "204",
+        "columns": {
+            "Lumiose Dex": "204",
+            "Name": "Pumpkaboo Small",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Pumpkaboo Average",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Pumpkaboo Large",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Pumpkaboo Super",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "205",
+        "columns": {
+            "Lumiose Dex": "205",
+            "Name": "Gourgeist Small",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Gourgeist Average",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Gourgeist Large",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Gourgeist Super",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "FALSE",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "206",
+        "columns": {
+            "Lumiose Dex": "206",
+            "Name": "Larvitar",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "207",
+        "columns": {
+            "Lumiose Dex": "207",
+            "Name": "Pupitar",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "208",
+        "columns": {
+            "Lumiose Dex": "208",
+            "Name": "Tyranitar",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "209",
+        "columns": {
+            "Lumiose Dex": "209",
+            "Name": "Froakie",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "210",
+        "columns": {
+            "Lumiose Dex": "210",
+            "Name": "Frogadier",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "211",
+        "columns": {
+            "Lumiose Dex": "211",
+            "Name": "Greninja",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "212",
+        "columns": {
+            "Lumiose Dex": "212",
+            "Name": "Falinks",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "213",
+        "columns": {
+            "Lumiose Dex": "213",
+            "Name": "Chespin",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "214",
+        "columns": {
+            "Lumiose Dex": "214",
+            "Name": "Quilladin",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "215",
+        "columns": {
+            "Lumiose Dex": "215",
+            "Name": "Chesnaught",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "216",
+        "columns": {
+            "Lumiose Dex": "216",
+            "Name": "Skarmory",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "217",
+        "columns": {
+            "Lumiose Dex": "217",
+            "Name": "Fennekin",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "218",
+        "columns": {
+            "Lumiose Dex": "218",
+            "Name": "Braixen",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "219",
+        "columns": {
+            "Lumiose Dex": "219",
+            "Name": "Delphox",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "220",
+        "columns": {
+            "Lumiose Dex": "220",
+            "Name": "Bagon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "221",
+        "columns": {
+            "Lumiose Dex": "221",
+            "Name": "Shelgon",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "222",
+        "columns": {
+            "Lumiose Dex": "222",
+            "Name": "Salamence",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "223",
+        "columns": {
+            "Lumiose Dex": "223",
+            "Name": "Kangaskhan",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "224",
+        "columns": {
+            "Lumiose Dex": "224",
+            "Name": "Drampa",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "225",
+        "columns": {
+            "Lumiose Dex": "225",
+            "Name": "Beldum",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "226",
+        "columns": {
+            "Lumiose Dex": "226",
+            "Name": "Metang",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "227",
+        "columns": {
+            "Lumiose Dex": "227",
+            "Name": "Metagross",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "FALSE",
+            "Shiny Sprite": "",
+            "Shiny": "FALSE",
+            "Shiny Forms": "",
+            "Shiny Alpha": "FALSE"
+        }
+    },
+    {
+        "id": "228",
+        "columns": {
+            "Lumiose Dex": "228",
+            "Name": "Xerneas",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "229",
+        "columns": {
+            "Lumiose Dex": "229",
+            "Name": "Yveltal",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "230",
+        "columns": {
+            "Lumiose Dex": "230",
+            "Name": "Zygarde 10%",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "",
+        "columns": {
+            "Lumiose Dex": "",
+            "Name": "Zygarde 50%",
+            "Sprite": "",
+            "Caught": "",
+            "with Forms": "FALSE",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "231",
+        "columns": {
+            "Lumiose Dex": "231",
+            "Name": "Diancie",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    },
+    {
+        "id": "232",
+        "columns": {
+            "Lumiose Dex": "232",
+            "Name": "Mewtwo",
+            "Sprite": "",
+            "Caught": "FALSE",
+            "with Forms": "",
+            "Alpha": "",
+            "Shiny Sprite": "",
+            "Shiny": "",
+            "Shiny Forms": "",
+            "Shiny Alpha": ""
+        }
+    }
+]
