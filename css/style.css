@@ -59,6 +59,20 @@ body {
 .btn-danger:hover, .btn-danger:focus  { background: var(--pk-red-dk); border-color: var(--pk-red-dk); box-shadow: 0 3px 12px rgba(220,38,38,.35); }
 .btn-outline-secondary:hover { box-shadow: 0 2px 8px rgba(0,0,0,.1); }
 
+/* ---- Toggle mot de passe ---- */
+.pw-toggle-btn {
+    cursor: pointer;
+    color: #94a3b8;
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    border-radius: 0 8px 8px 0 !important;
+    transition: color .15s, background .15s;
+    user-select: none;
+}
+.pw-toggle-btn:hover    { color: var(--pk-red); background: #fff0f0; }
+.pw-toggle-btn.active   { color: var(--pk-red); }
+.pw-toggle-btn svg      { display: block; }
+
 /* ---- Forms ---- */
 .form-control, .form-select {
     border-radius: 8px;

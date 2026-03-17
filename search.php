@@ -11,7 +11,9 @@ $q = mb_substr($q, 0, 60);
 
 try {
     $pdo  = DB::getPDO();
-    $like = '%' . $q . '%';
+    // Échapper les caractères spéciaux LIKE pour éviter les wildcard non désirés
+    $qSafe = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q);
+    $like  = '%' . $qSafe . '%';
 
     // --- Pokédex matching ---
     $stmt = $pdo->prepare("

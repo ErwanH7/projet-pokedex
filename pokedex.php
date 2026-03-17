@@ -96,6 +96,7 @@ foreach ($species as $sid => $data) {
     <title><?= htmlspecialchars($pokedex['name']) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <meta name="csrf-token" content="<?= htmlspecialchars(csrf_token()) ?>">
     <style>
         .poke-card {
             background: white; border-radius: 12px; padding: 10px 8px;
@@ -285,9 +286,13 @@ function saveCaught(checkbox, formPid, speciesId, pokedexID, type) {
     updateCardStyle(speciesId);
     recalcCounters();
 
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     fetch("update_caught.php", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRF-Token": csrfToken
+        },
         body: `pokemon_id=${encodeURIComponent(formPid)}&pokedex_id=${encodeURIComponent(pokedexID)}&${type}=${val}`
     })
     .then(r => r.json())

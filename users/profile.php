@@ -19,6 +19,7 @@ if (!$user) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
     if (isset($_POST['update_info'])) {
         $username = trim($_POST['username'] ?? '');
         $lang = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de']) ? $_POST['preferred_language'] : 'fr';
@@ -99,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="card-header fw-semibold">Informations personnelles</div>
         <div class="card-body">
             <form method="post">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Email (identifiant)</label>
                     <input type="text" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" disabled>
@@ -126,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="card-header fw-semibold">Changer le mot de passe</div>
         <div class="card-body">
             <form method="post">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
                     <label for="old_password" class="form-label fw-semibold">Mot de passe actuel</label>
                     <input type="password" class="form-control" id="old_password" name="old_password" required>
@@ -145,5 +148,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/utils.js"></script>
 </body>
 </html>

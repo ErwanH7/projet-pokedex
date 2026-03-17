@@ -14,6 +14,7 @@ $userSalt = $cfg['login']['user']['salt'] ?? '';
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
     $email = trim($_POST['email'] ?? '');
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -41,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($e->errorInfo[1] == 1062) {
                 $errors[] = "Cet email est déjà utilisé.";
             } else {
-                $errors[] = "Erreur serveur: " . $e->getMessage();
+                error_log("Erreur inscription: " . $e->getMessage());
+                $errors[] = "Erreur serveur, veuillez réessayer.";
             }
         }
     }
@@ -85,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form method="post">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Adresse email <span class="text-danger">*</span></label>
                     <input type="email" class="form-control" id="email" name="email"
@@ -126,5 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/utils.js"></script>
 </body>
 </html>

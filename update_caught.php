@@ -4,6 +4,9 @@ $pdo = DB::getPDO();
 
 header('Content-Type: application/json');
 
+// Vérification CSRF
+csrf_verify();
+
 $userID    = $_SESSION['user_id'] ?? null;
 $pokemonID = trim($_POST['pokemon_id'] ?? '');
 $pokedexID = (int)($_POST['pokedex_id'] ?? 0);
@@ -14,6 +17,16 @@ if (!$userID || !$pokemonID || !$pokedexID) {
     echo json_encode(['ok' => false, 'error' => "Paramètres manquants"]);
     exit;
 }
+
+// Valider le format de pokemon_id : digits optionnellement suivis de _alphanum
+if (!preg_match('/^\d+(_[a-z0-9\-]+)?$/i', $pokemonID)) {
+    echo json_encode(['ok' => false, 'error' => "Identifiant de forme invalide"]);
+    exit;
+}
+
+// Limiter caught et shiny à 0 ou 1
+if ($caught !== null) $caught = $caught ? 1 : 0;
+if ($shiny  !== null) $shiny  = $shiny  ? 1 : 0;
 
 // Vérifier que l'utilisateur existe vraiment en BDD (session périmée possible)
 $stmtUser = $pdo->prepare("SELECT id FROM users WHERE id = ?");
@@ -95,5 +108,6 @@ try {
     echo json_encode(['ok' => true]);
 
 } catch (PDOException $e) {
-    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
+    error_log("Erreur update_caught: " . $e->getMessage());
+    echo json_encode(['ok' => false, 'error' => 'Erreur serveur.']);
 }
