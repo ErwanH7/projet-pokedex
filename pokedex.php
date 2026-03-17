@@ -1,15 +1,11 @@
 <?php
-require_once 'config/pdo.php';
+include_once 'include.php';
 $pdo = DB::getPDO();
 
-session_start();
-$userID = $_SESSION['user_id'] ?? 1; // à adapter
-
+$userID  = $_SESSION['user_id'];
 $dexCode = $_GET['dex'] ?? null;
 if (!$dexCode) die("Aucun Pokédex spécifié.");
 
-
-// On récupère le pokédex demandé
 $stmt = $pdo->prepare("SELECT id, name FROM pokedex_list WHERE code = ?");
 $stmt->execute([$dexCode]);
 $pokedex = $stmt->fetch();
@@ -17,109 +13,406 @@ if (!$pokedex) die("Pokédex introuvable.");
 
 $pokedexID = $pokedex['id'];
 
+// Pokédexes avec exclusivités de version
+$VERSION_DEXES = ['EV', 'LA', 'ZA'];
+$showVersion   = in_array(strtoupper($dexCode), $VERSION_DEXES);
 
-// On récupère TOUTES les entrées du pokédex
+// Récupérer toutes les entrées avec sprites de la forme
 $stmt = $pdo->prepare("
-    SELECT pe.pokemon_id, p.name_fr, p.id AS species_id, p.sprite
+    SELECT
+        pe.pokemon_id,
+        pe.position,
+        pe.version,
+        p.id         AS species_id,
+        p.name_fr,
+        p.name_en,
+        p.name_de,
+        pf.sprite,
+        pf.shiny_sprite,
+        pf.form_code
     FROM pokedex_entries pe
-    JOIN pokemon p ON SUBSTRING_INDEX(pe.pokemon_id, '_', 1) = p.id
+    JOIN pokemon_forms pf ON pe.pokemon_id = pf.id
+    JOIN pokemon p        ON pf.pokemon_id = p.id
     WHERE pe.pokedex_id = ?
-    ORDER BY p.id ASC
+    ORDER BY pe.position IS NULL ASC, pe.position ASC, p.id ASC
 ");
 $stmt->execute([$pokedexID]);
 $entries = $stmt->fetchAll();
 
-
-// On regroupe par espèce
+// Regrouper par espèce
 $species = [];
-
 foreach ($entries as $row) {
-    $pid = $row['pokemon_id'];   // ex: "123_m"
-    $speciesID = $row['species_id']; // ex: 123
-    $name = $row['name_fr'];
-
-    // Forme (m, f, mega…)
-    $form = (strpos($pid, '_') !== false) ? explode("_", $pid)[1] : "normal";
-
-    // Ajouter dans le tableau groupé :
-    $species[$speciesID]['name'] = $name;
-    $species[$speciesID]['forms'][$pid] = [
-        "code" => $form,
-        "image" => $row['sprite'] // lien URL
+    $sid = $row['species_id'];
+    if (!isset($species[$sid])) {
+        $species[$sid] = [
+            'name'     => $row['name_fr'] ?: $row['name_en'] ?: '#' . $sid,
+            'name_fr'  => $row['name_fr'] ?? '',
+            'name_en'  => $row['name_en'] ?? '',
+            'name_de'  => $row['name_de'] ?? '',
+            'position' => $row['position'],
+            'version'  => $row['version'],
+            'forms'    => [],
+        ];
+    }
+    $species[$sid]['forms'][$row['pokemon_id']] = [
+        'code'   => $row['form_code'],
+        'sprite' => $row['sprite'],
+        'shiny'  => $row['shiny_sprite'],
     ];
+}
+
+// Progression : clé = pokemon_id (ID de forme, ex: "154" ou "154_m")
+$stmt = $pdo->prepare("
+    SELECT pokemon_id, caught, shiny FROM user_progress
+    WHERE user_id = ? AND pokedex_id = ?
+");
+$stmt->execute([$userID, $pokedexID]);
+$progressData = [];
+foreach ($stmt->fetchAll() as $r) {
+    $progressData[$r['pokemon_id']] = ['caught' => (int)$r['caught'], 'shiny' => (int)$r['shiny']];
+}
+
+// Compteurs : 1 espèce = cochée si au moins 1 de ses formes est cochée
+$totalSpecies = count($species);
+$caughtNormal = 0;
+$caughtShiny  = 0;
+foreach ($species as $sid => $data) {
+    $speciesNormal = false;
+    $speciesShiny  = false;
+    foreach ($data['forms'] as $pid => $_) {
+        $fp = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0];
+        if ($fp['caught']) $speciesNormal = true;
+        if ($fp['shiny'])  $speciesShiny  = true;
+    }
+    if ($speciesNormal) $caughtNormal++;
+    if ($speciesShiny)  $caughtShiny++;
 }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-<meta charset="UTF-8">
-<title><?= htmlspecialchars($pokedex['name']) ?></title>
-<style>
-body { font-family: Arial; background: #f5f5f5; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; padding: 20px; }
-.card { background: white; border-radius: 12px; padding: 10px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-.card img { width: 110px; height: 110px; object-fit: contain; image-rendering: pixelated; }
-.form-label { font-size: 12px; color: #555; margin-bottom: 4px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= htmlspecialchars($pokedex['name']) ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        .poke-card {
+            background: white; border-radius: 12px; padding: 10px 8px;
+            text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: box-shadow .2s; border: 2px solid transparent;
+        }
+        .poke-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.18); }
+        .poke-card.both   { border-color: #f59e0b; background: #fffdf0; }
+        .poke-card.normal { border-color: #198754; background: #f0fff4; }
+        .poke-card.shiny  { border-color: #a855f7; background: #fdf4ff; }
 
+        .sprites-row {
+            display: flex; justify-content: center; align-items: flex-end;
+            gap: 4px;
+        }
+        .sprite-col {
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
+            flex: 1;
+        }
+        .poke-img {
+            width: 72px; height: 72px; object-fit: contain;
+            image-rendering: pixelated;
+        }
+        .poke-img.shiny-sprite { filter: drop-shadow(0 0 4px #f59e0b); }
+
+        .form-badge { font-size: 0.68rem; color: #888; margin-bottom: 2px; }
+        .poke-num   { font-size: 0.72rem; color: #bbb; }
+
+        .check-col {
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 0.68rem; gap: 2px; margin-top: 4px;
+        }
+        .check-col input[type=checkbox] { width: 15px; height: 15px; cursor: pointer; }
+        .check-col .lbl-normal { color: #198754; font-weight: 600; }
+        .check-col .lbl-shiny  { color: #a855f7; font-weight: 600; }
+
+        .version-badge {
+            display: inline-block; font-size: 0.6rem; font-weight: 700;
+            padding: 1px 5px; border-radius: 4px; margin-bottom: 3px; letter-spacing: .03em;
+        }
+        .version-badge.scarlet { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .version-badge.violet  { background: #ede9fe; color: #7c3aed; border: 1px solid #c4b5fd; }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/index.php"><img src="/img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/users/logout.php">Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="sub-bar sticky-top px-3 py-2" style="top:100px;z-index:999">
+    <div class="d-flex align-items-center gap-2">
+        <a href="/index.php" class="btn btn-sm btn-outline-secondary flex-shrink-0">&larr; Retour</a>
+        <span class="dex-title d-none d-sm-block text-truncate flex-shrink-0" style="font-size:.95rem;max-width:140px"><?= htmlspecialchars($pokedex['name']) ?></span>
+        <div class="position-relative flex-grow-1">
+            <input type="search" id="pokeFilter" class="form-control form-control-sm pe-5"
+                   placeholder="Filtrer un Pokémon…" autocomplete="off">
+            <span id="filterCount" class="filter-count-badge" hidden></span>
+        </div>
+        <div class="d-flex gap-3 text-center flex-shrink-0 ms-1">
+            <div class="count-block">
+                <div class="count-val text-success" id="count-normal"><?= $caughtNormal ?></div>
+                <div class="count-lbl">Normal / <?= $totalSpecies ?></div>
+            </div>
+            <div class="count-block">
+                <div class="count-val" style="color:var(--pk-purple)" id="count-shiny"><?= $caughtShiny ?></div>
+                <div class="count-lbl">Shiny / <?= $totalSpecies ?></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-3 mt-3">
+    <div class="row row-cols-3 g-2">
+    <?php foreach ($species as $speciesID => $data):
+        // Couleur de la carte = vérifie toutes les formes de l'espèce
+        $cardCaught = false;
+        $cardShiny  = false;
+        foreach ($data['forms'] as $pid => $_) {
+            $fp = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0];
+            if ($fp['caught']) $cardCaught = true;
+            if ($fp['shiny'])  $cardShiny  = true;
+        }
+        $cardClass = ($cardCaught && $cardShiny) ? 'both' : ($cardCaught ? 'normal' : ($cardShiny ? 'shiny' : ''));
+    ?>
+        <div class="col">
+            <div class="poke-card <?= $cardClass ?>" id="card-<?= $speciesID ?>"
+                 data-name-fr="<?= htmlspecialchars(mb_strtolower($data['name_fr'])) ?>"
+                 data-name-en="<?= htmlspecialchars(mb_strtolower($data['name_en'])) ?>"
+                 data-name-de="<?= htmlspecialchars(mb_strtolower($data['name_de'])) ?>">
+                <div class="poke-num"><?= $data['position'] ? '#' . str_pad((string)$data['position'], 3, '0', STR_PAD_LEFT) : '—' ?></div>
+                <?php if ($showVersion && $data['version']): ?>
+                    <?php
+                        $vLabel = match($data['version']) {
+                            'scarlet' => 'Écarlate',
+                            'violet'  => 'Violet',
+                            'la'      => 'LA',
+                            default   => htmlspecialchars($data['version']),
+                        };
+                        $vClass = match($data['version']) {
+                            'scarlet' => 'scarlet',
+                            'violet'  => 'violet',
+                            default   => 'scarlet',
+                        };
+                    ?>
+                    <span class="version-badge <?= $vClass ?>"><?= $vLabel ?></span>
+                <?php endif; ?>
+                <strong class="d-block mb-1" style="font-size:.88rem"><?= htmlspecialchars($data['name']) ?></strong>
+
+                <?php foreach ($data['forms'] as $pid => $form):
+                    // Progression propre à cette forme
+                    $formProg   = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0];
+                    $formCaught = $formProg['caught'];
+                    $formShiny  = $formProg['shiny'];
+                    $safeId  = htmlspecialchars($pid);
+                    $altName = htmlspecialchars($data['name']);
+                    $noSprite = '<div style="width:72px;height:72px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:1.2rem">?</div>';
+                ?>
+                <div class="mb-2">
+                    <?php if (!empty($form['code']) && $form['code'] !== 'base'): ?>
+                        <div class="form-badge"><?= htmlspecialchars($form['code']) ?></div>
+                    <?php endif; ?>
+
+                    <div class="sprites-row">
+                        <!-- Sprite normal -->
+                        <div class="sprite-col">
+                            <?php if ($form['sprite']): ?>
+                                <img src="<?= htmlspecialchars($form['sprite']) ?>"
+                                     class="poke-img" alt="<?= $altName ?>">
+                            <?php else: ?><?= $noSprite ?><?php endif; ?>
+                            <div class="check-col">
+                                <input type="checkbox"
+                                       id="chk-normal-<?= $safeId ?>"
+                                       onchange="saveCaught(this,'<?= $safeId ?>',<?= $speciesID ?>,'<?= $pokedexID ?>','caught')"
+                                       <?= $formCaught ? 'checked' : '' ?>>
+                                <span class="lbl-normal">Normal</span>
+                            </div>
+                        </div>
+
+                        <!-- Sprite shiny -->
+                        <div class="sprite-col">
+                            <?php if ($form['shiny']): ?>
+                                <img src="<?= htmlspecialchars($form['shiny']) ?>"
+                                     class="poke-img shiny-sprite" alt="<?= $altName ?> shiny">
+                            <?php else: ?>
+                                <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0">sprite shiny<br>non disponible</div>
+                            <?php endif; ?>
+                            <div class="check-col">
+                                <input type="checkbox"
+                                       id="chk-shiny-<?= $safeId ?>"
+                                       onchange="saveCaught(this,'<?= $safeId ?>',<?= $speciesID ?>,'<?= $pokedexID ?>','shiny')"
+                                       <?= $formShiny ? 'checked' : '' ?>>
+                                <span class="lbl-shiny">✨ Shiny</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    </div>
+</div>
+
+<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    title="Remonter en haut"
+    style="display:none;position:fixed;bottom:24px;right:24px;z-index:9999;
+           width:44px;height:44px;border-radius:50%;border:none;
+           background:#cc0000;color:white;font-size:1.1rem;
+           box-shadow:0 4px 12px rgba(0,0,0,0.25);cursor:pointer;">&#8679;</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// AJAX pour mettre à jour les captures
-function toggleCaught(checkbox, pokemonID, pokedexID) {
-    const caught = checkbox.checked ? 1 : 0;
+// formPid  = ID de la forme (ex: "154_m")  → envoyé à la BDD et utilisé pour les IDs HTML
+// speciesId = ID de l'espèce (ex: 154)     → utilisé pour trouver la carte et recalculer les compteurs
+function saveCaught(checkbox, formPid, speciesId, pokedexID, type) {
+    const val = checkbox.checked ? 1 : 0;
+
+    updateCardStyle(speciesId);
+    recalcCounters();
 
     fetch("update_caught.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `pokemon_id=${pokemonID}&pokedex_id=${pokedexID}&caught=${caught}`
-    });
+        body: `pokemon_id=${encodeURIComponent(formPid)}&pokedex_id=${encodeURIComponent(pokedexID)}&${type}=${val}`
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (!data.ok) {
+            if (data.error === 'SESSION_EXPIRED') {
+                alert("Votre session a expiré. Vous allez être redirigé vers la page de connexion.");
+                window.location.href = 'users/login.php';
+            } else {
+                console.error("Erreur sauvegarde :", data.error);
+                alert("Erreur lors de la sauvegarde :\n" + data.error);
+                checkbox.checked = !checkbox.checked;
+                updateCardStyle(speciesId);
+                recalcCounters();
+            }
+        }
+    })
+    .catch(err => console.error("Erreur réseau :", err));
 }
+
+function updateCardStyle(speciesId) {
+    const card = document.getElementById('card-' + speciesId);
+    if (!card) return;
+    const normalBoxes = card.querySelectorAll('[id^="chk-normal-"]');
+    const shinyBoxes  = card.querySelectorAll('[id^="chk-shiny-"]');
+    const hasCaught   = [...normalBoxes].some(cb => cb.checked);
+    const hasShiny    = [...shinyBoxes].some(cb => cb.checked);
+
+    card.classList.remove('normal', 'shiny', 'both');
+    if (hasCaught && hasShiny) card.classList.add('both');
+    else if (hasCaught)        card.classList.add('normal');
+    else if (hasShiny)         card.classList.add('shiny');
+}
+
+function recalcCounters() {
+    let normalCount = 0, shinyCount = 0;
+    document.querySelectorAll('.poke-card').forEach(card => {
+        if ([...card.querySelectorAll('[id^="chk-normal-"]')].some(cb => cb.checked)) normalCount++;
+        if ([...card.querySelectorAll('[id^="chk-shiny-"]')].some(cb => cb.checked))  shinyCount++;
+    });
+    document.getElementById('count-normal').textContent = normalCount;
+    document.getElementById('count-shiny').textContent  = shinyCount;
+}
+
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+});
 </script>
+<script>
+(function () {
+    const filterInput = document.getElementById('pokeFilter');
+    const countBadge  = document.getElementById('filterCount');
+    if (!filterInput) return;
 
-</head>
-<body>
+    // Construire l'index une seule fois au chargement
+    const entries = Array.from(document.querySelectorAll('.poke-card')).map(card => ({
+        card,
+        col:  card.closest('.col'),
+        fr:   card.dataset.nameFr  || '',
+        en:   card.dataset.nameEn  || '',
+        de:   card.dataset.nameDe  || '',
+    }));
 
-<h1 style="text-align:center"><?= htmlspecialchars($pokedex['name']) ?></h1>
+    let rafId = null;
+    let matches = [];   // cartes correspondant au filtre actif
+    let cursor  = -1;   // index dans matches de la carte mise en avant
 
-<div class="grid">
+    filterInput.addEventListener('input', () => {
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => applyFilter(filterInput.value.trim()));
+    });
 
-<?php
-// Précharger les captures de l’utilisateur
-$stmt = $pdo->prepare("
-    SELECT pokemon_id, caught FROM user_progress
-    WHERE user_id = ? AND pokedex_id = ?
-");
-$stmt->execute([$userID, $pokedexID]);
-$caughtData = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    filterInput.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { filterInput.value = ''; applyFilter(''); return; }
+        if (!matches.length) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); moveCursor(1); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); moveCursor(-1); }
+    });
 
+    function moveCursor(dir) {
+        if (!matches.length) return;
+        highlightCard(cursor, false);
+        cursor = (cursor + dir + matches.length) % matches.length;
+        highlightCard(cursor, true);
+        matches[cursor].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        countBadge.textContent = (cursor + 1) + ' / ' + matches.length;
+    }
 
-foreach ($species as $speciesID => $data):
-?>
-    <div class="card">
+    function highlightCard(idx, on) {
+        if (idx < 0 || idx >= matches.length) return;
+        const card = matches[idx];
+        card.style.outline      = on ? '3px solid var(--pk-red)' : '';
+        card.style.outlineOffset = on ? '2px' : '';
+        card.style.opacity      = on ? '1' : '';
+    }
 
-        <strong><?= htmlspecialchars($data['name']) ?></strong><br>
+    function applyFilter(q) {
+        // Retirer l'ancienne mise en avant
+        highlightCard(cursor, false);
+        cursor = -1;
+        matches = [];
 
-        <!-- Case à cocher globale -->
-        <label>
-            <input type="checkbox"
-                   onclick="toggleCaught(this,'<?= $speciesID ?>','<?= $pokedexID ?>')"
-                   <?= isset($caughtData[$speciesID]) && $caughtData[$speciesID] == 1 ? "checked" : "" ?>>
-            Capturé
-        </label>
+        const term = q.toLowerCase();
+        entries.forEach(({ card, fr, en, de }) => {
+            const match = !term || fr.includes(term) || en.includes(term) || de.includes(term);
+            card.style.opacity       = match ? '' : '0.2';
+            card.style.pointerEvents = match ? '' : 'none';
+            card.style.outline       = '';
+            if (match && term) matches.push(card);
+        });
 
-        <hr>
-
-        <?php foreach ($data['forms'] as $pid => $form): ?>
-            <div>
-                <div class="form-label"><?= htmlspecialchars($form['code']) ?></div>
-                <img src="<?= htmlspecialchars($form['image']) ?>" alt="">
-            </div>
-        <?php endforeach; ?>
-
-    </div>
-<?php endforeach; ?>
-
-</div>
-
+        if (!term) {
+            countBadge.hidden = true;
+        } else {
+            countBadge.textContent = matches.length + ' / ' + entries.length;
+            countBadge.hidden = false;
+            if (matches.length) {
+                cursor = 0;
+                highlightCard(0, true);
+                matches[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+})();
+</script>
 </body>
 </html>

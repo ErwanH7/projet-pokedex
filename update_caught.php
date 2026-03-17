@@ -1,40 +1,99 @@
 <?php
-require_once 'config/pdo.php';
-require_once 'config/constantesPDO.php';
+include_once 'include.php';
 $pdo = DB::getPDO();
-session_start();
 
-$userID = $_SESSION['user_id'] ?? 1;
+header('Content-Type: application/json');
 
-$pokemonID = $_POST['pokemon_id'];
-$pokedexID = $_POST['pokedex_id'];
-$caught = $_POST['caught'];
+$userID    = $_SESSION['user_id'] ?? null;
+$pokemonID = trim($_POST['pokemon_id'] ?? '');
+$pokedexID = (int)($_POST['pokedex_id'] ?? 0);
+$caught    = isset($_POST['caught']) ? (int)$_POST['caught'] : null;
+$shiny     = isset($_POST['shiny'])  ? (int)$_POST['shiny']  : null;
 
-// Vérifier si existe déjà
-$stmt = $pdo->prepare("
-    SELECT * FROM user_progress 
-    WHERE user_id = ? AND pokedex_id = ? AND pokemon_id = ?
-");
-$stmt->execute([$userID, $pokedexID, $pokemonID]);
-
-if ($stmt->fetch()) {
-
-    // Update
-    $upd = $pdo->prepare("
-        UPDATE user_progress 
-        SET caught = ?
-        WHERE user_id = ? AND pokedex_id = ? AND pokemon_id = ?
-    ");
-    $upd->execute([$caught, $userID, $pokedexID, $pokemonID]);
-
-} else {
-
-    // Insert
-    $ins = $pdo->prepare("
-        INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught)
-        VALUES (?, ?, ?, ?)
-    ");
-    $ins->execute([$userID, $pokedexID, $pokemonID, $caught]);
+if (!$userID || !$pokemonID || !$pokedexID) {
+    echo json_encode(['ok' => false, 'error' => "Paramètres manquants"]);
+    exit;
 }
 
-echo "OK";
+// Vérifier que l'utilisateur existe vraiment en BDD (session périmée possible)
+$stmtUser = $pdo->prepare("SELECT id FROM users WHERE id = ?");
+$stmtUser->execute([$userID]);
+if (!$stmtUser->fetchColumn()) {
+    // Session invalide : forcer la déconnexion
+    session_destroy();
+    echo json_encode(['ok' => false, 'error' => 'SESSION_EXPIRED']);
+    exit;
+}
+
+try {
+    // S'assurer que la forme existe dans pokemon_forms (au cas où FK active)
+    $stmtFormCheck = $pdo->prepare("SELECT id FROM pokemon_forms WHERE id = ?");
+    $stmtFormCheck->execute([$pokemonID]);
+    if (!$stmtFormCheck->fetchColumn()) {
+        // Tenter de créer la forme de base manquante si l'espèce existe
+        $speciesID = (int)explode('_', $pokemonID)[0];
+        $stmtSpecies = $pdo->prepare("SELECT id FROM pokemon WHERE id = ?");
+        $stmtSpecies->execute([$speciesID]);
+        if ($stmtSpecies->fetchColumn()) {
+            $formCode = strpos($pokemonID, '_') !== false ? explode('_', $pokemonID, 2)[1] : 'base';
+            $pdo->prepare("INSERT IGNORE INTO pokemon_forms (id, pokemon_id, form_code) VALUES (?, ?, ?)")
+                ->execute([$pokemonID, $speciesID, $formCode]);
+        } else {
+            echo json_encode(['ok' => false, 'error' => "Pokémon introuvable : $pokemonID"]);
+            exit;
+        }
+    }
+
+    // Upsert en une seule requête selon le champ modifié
+    if ($caught !== null) {
+        $pdo->prepare("
+            INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+            VALUES (?, ?, ?, ?, 0)
+            ON DUPLICATE KEY UPDATE caught = VALUES(caught)
+        ")->execute([$userID, $pokedexID, $pokemonID, $caught]);
+    }
+
+    if ($shiny !== null) {
+        $pdo->prepare("
+            INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+            VALUES (?, ?, ?, 0, ?)
+            ON DUPLICATE KEY UPDATE shiny = VALUES(shiny)
+        ")->execute([$userID, $pokedexID, $pokemonID, $shiny]);
+    }
+
+    // Sync vers le Pokédex National (sens unique : régional → national seulement)
+    $stmtCode = $pdo->prepare("SELECT code FROM pokedex_list WHERE id = ?");
+    $stmtCode->execute([$pokedexID]);
+    $currentCode = $stmtCode->fetchColumn();
+
+    $nationalCodes = ['NATIONAL', 'NATIONALDEX', 'NATIONAL_DEX', 'NAT', 'NATDEX'];
+    if ($currentCode && !in_array(strtoupper($currentCode), $nationalCodes)) {
+        $placeholders = implode(',', array_fill(0, count($nationalCodes), '?'));
+        $stmtNat = $pdo->prepare("SELECT id FROM pokedex_list WHERE UPPER(code) IN ($placeholders)");
+        $stmtNat->execute($nationalCodes);
+        $nationalID = $stmtNat->fetchColumn();
+
+        if ($nationalID) {
+            // Sync direct, pas besoin que le pokemon soit dans pokedex_entries du national
+            if ($caught !== null) {
+                $pdo->prepare("
+                    INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+                    VALUES (?, ?, ?, ?, 0)
+                    ON DUPLICATE KEY UPDATE caught = VALUES(caught)
+                ")->execute([$userID, $nationalID, $pokemonID, $caught]);
+            }
+            if ($shiny !== null) {
+                $pdo->prepare("
+                    INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+                    VALUES (?, ?, ?, 0, ?)
+                    ON DUPLICATE KEY UPDATE shiny = VALUES(shiny)
+                ")->execute([$userID, $nationalID, $pokemonID, $shiny]);
+            }
+        }
+    }
+
+    echo json_encode(['ok' => true]);
+
+} catch (PDOException $e) {
+    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
+}

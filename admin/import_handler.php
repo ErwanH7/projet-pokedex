@@ -1,6 +1,7 @@
 <?php
 // import_handler.php
 declare(strict_types=1);
+require_once __DIR__ . '/../users/admin_required.php';
 
 require_once __DIR__ . '/../config/constantesPDO.php';
 
@@ -26,10 +27,13 @@ try {
 
 // ---------- CONFIG POKEDEX / FORMES AUTORISÉES ----------
 $allowedForms = [
-    "ZA"  => ["base", "m", "f", "mega"],
-    "SV"  => ["base", "m", "f", "alolan", "galarian", "hisuian", "paldean", "10", "50"],
-    "PLA" => ["base", "m", "f", "hisuian"],
-    "XY"  => ["base", "m", "f", "mega", "10", "50"],
+    "ZA"  => ["base", "mega", "10", "50"],
+    "ZAL" => ["base", "mega", "10", "50"],
+    "ZAH" => ["base", "mega", "10", "50"],
+    "SV"  => ["base", "alolan", "galarian", "hisuian", "paldean", "10", "50"],
+    "PLA" => ["base", "hisuian"],
+    "XY"  => ["base", "mega", "10", "50"],
+    "EV"  => ["base", "alolan", "galarian", "hisuian", "paldean"],
 ];
 
 // ---------- UTILITAIRES ----------
@@ -69,12 +73,19 @@ function normalize_name_for_lookup(string $rawName): string {
     $name = preg_replace('/\((.*?)\)/u', '', $name);
 
     $removeWords = [
+        // Formes spéciales — à supprimer pour retrouver l'espèce de base
+        'Mega', 'Gigantamax', 'G-Max',
+        'Alolan', 'Galarian', 'Hisuian', 'Paldean',
+        // Fleurs Flabébé/Florges
         'Red Flower','White Flower','Orange Flower','Yellow Flower','Blue Flower',
+        // Patterns Vivillon
         'Meadow Pattern','Marine Pattern','Garden Pattern','Elegant Pattern',
         'High Plains Pattern','Modern Pattern','Monsoon Pattern','Ocean Pattern',
         'Sandstorm Pattern','Savanna Pattern','Sun Pattern','Tundra Pattern',
         'Poké Ball Pattern','Fancy Pattern',
+        // Tailles
         'Small','Average','Large','Super',
+        // Trims Furfrou
         'Natural','Heart Trim','Star Trim','Diamond Trim','La Reine Trim',
         'Kabuki Trim','Pharaoh Trim','Debutante Trim','Matron Trim','Dandy Trim'
     ];
@@ -83,7 +94,7 @@ function normalize_name_for_lookup(string $rawName): string {
     return $name;
 }
 
-function getOrCreateForm(PDO $pdo, int $speciesID, string $formCode, string $sprite = null, string $shiny = null): string {
+function getOrCreateForm(PDO $pdo, int $speciesID, string $formCode, ?string $sprite = null, ?string $shiny = null): string {
     // form id convention: species (int) for base, species_formCode for others
     $formID = ($formCode === 'base') ? (string)$speciesID : "{$speciesID}_{$formCode}";
 
@@ -102,24 +113,24 @@ function getOrCreateForm(PDO $pdo, int $speciesID, string $formCode, string $spr
 }
 
 // ---------- START HANDLER ----------
-if (!isset($_FILES['csv'])) {
+if (!isset($_FILES['file'])) {
     die("Aucun fichier n'a été envoyé.");
 }
 $csvType = $_POST['csv_type'] ?? null;
 $pokedexCode = $_POST['pokedex_code'] ?? null;
-$csvFile = $_FILES['csv']['tmp_name'] ?? null;
+$filePath = $_FILES['file']['tmp_name'] ?? null;
 
-if (!$csvFile || !file_exists($csvFile)) {
-    die("Le fichier CSV n'existe pas.");
+if (!$filePath || !file_exists($filePath)) {
+    die("Le fichier n'existe pas.");
 }
 
-$handle = fopen($csvFile, "r");
-if (!$handle) die("Impossible d'ouvrir le fichier CSV.");
+$handle = fopen($filePath, "r");
+if (!$handle) die("Impossible d'ouvrir le fichier.");
 $headers = fgetcsv($handle, 10000, ",");
 
 // -------------------- IMPORT DATABASE.CSV --------------------
 if ($csvType === "database") {
-    echo "<h2>Import du fichier Database.csv…</h2>";
+    echo "<h2>Import du fichier Database…</h2>";
 
     while (($row = fgetcsv($handle, 10000, ",")) !== false) {
         // protéger contre lignes vides
@@ -200,7 +211,7 @@ if ($csvType === "pokedex") {
     }
 
     // Read file content (we accept JSON or CSV)
-    $content = file_get_contents($csvFile);
+    $content = file_get_contents($filePath);
     $jsonData = json_decode($content, true);
     $isJSON = (json_last_error() === JSON_ERROR_NONE) && is_array($jsonData);
 
@@ -212,7 +223,7 @@ if ($csvType === "pokedex") {
         if ($handle) {
             fclose($handle);
         }
-        $handle = fopen($csvFile, 'r');
+        $handle = fopen($filePath, 'r');
         if ($handle) {
             // Try autodetect delimiter by reading first line
             $firstLine = fgets($handle);
@@ -256,10 +267,16 @@ if ($csvType === "pokedex") {
     foreach ($jsonData as $entry) {
         // support both formats: entry may be string (id) or object with ["id"] or ["columns"]["Lumiose Dex"]
         $formID = "";
+        $regionalNumber = null;
 
         if (is_string($entry)) {
             $formID = trim($entry);
         } elseif (is_array($entry)) {
+            // Numéro régional (position d'affichage)
+            if (isset($entry['regional_number']) && $entry['regional_number'] !== '') {
+                $regionalNumber = (int)$entry['regional_number'];
+            }
+
             if (isset($entry['id'])) {
                 $formID = trim((string)$entry['id']);
             } elseif (isset($entry[0])) {
@@ -279,27 +296,98 @@ if ($csvType === "pokedex") {
 
         if ($formID === '') continue;
 
-        // Vérifie que la forme existe dans pokemon_forms
-        $stmt = $pdo->prepare("SELECT pokemon_id, form_code FROM pokemon_forms WHERE id = ?");
-        $stmt->execute([$formID]);
-        $form = $stmt->fetch();
+        // Extraire le code de forme depuis l'id (ex: "3_m" → formCode="m")
+        if (strpos($formID, '_') !== false) {
+            [, $formCode] = explode('_', $formID, 2);
+        } else {
+            $formCode = 'base';
+        }
+        // Les formes de genre sont traitées comme la forme de base
+        if (in_array($formCode, ['m', 'f'], true)) {
+            $formCode = 'base';
+        }
 
-        if (!$form) {
-            echo "⚠ Forme introuvable dans pokemon_forms : {$formID}<br>";
+        // ---------- Résolution de l'ID national ----------
+        // Priorité 1 : champ "national_id" explicite (nouveau format JSON)
+        $speciesID = null;
+        if (is_array($entry) && isset($entry['national_id']) && is_numeric($entry['national_id'])) {
+            $speciesID = (int)$entry['national_id'];
+        }
+
+        // Priorité 2 : recherche par nom anglais dans la table pokemon
+        if (!$speciesID && is_array($entry) && isset($entry['columns']['Name'])) {
+            $normalizedName = normalize_name_for_lookup($entry['columns']['Name']);
+            if ($normalizedName !== '') {
+                $stmt = $pdo->prepare("SELECT id FROM pokemon WHERE name_en = ?");
+                $stmt->execute([$normalizedName]);
+                $found = $stmt->fetchColumn();
+                if ($found) $speciesID = (int)$found;
+            }
+        }
+
+        // Priorité 3 : l'id du JSON est déjà un ID national (ancien format ou CSV simple)
+        if (!$speciesID) {
+            $speciesID = (int)explode('_', $formID, 2)[0];
+        }
+
+        // ---------- Résolution du numéro régional ----------
+        // Priorité 1 : champ "regional_number" explicite
+        // (déjà lu plus haut dans $regionalNumber)
+
+        // Priorité 2 : colonne "Lumiose Dex" (ou autre colonne régionale connue)
+        if ($regionalNumber === null && is_array($entry) && isset($entry['columns'])) {
+            $regionalCols = ['Lumiose Dex', 'Regional Dex', 'Regional', 'Dex #'];
+            foreach ($regionalCols as $col) {
+                if (isset($entry['columns'][$col]) && is_numeric($entry['columns'][$col]) && $entry['columns'][$col] !== '') {
+                    $regionalNumber = (int)$entry['columns'][$col];
+                    break;
+                }
+            }
+        }
+
+        // Vérifie que l'espèce existe dans pokemon
+        $stmt = $pdo->prepare("SELECT id FROM pokemon WHERE id = ?");
+        $stmt->execute([$speciesID]);
+        if (!$stmt->fetchColumn()) {
+            $nameHint = $entry['columns']['Name'] ?? $formID;
+            echo "⚠ Espèce introuvable : « {$nameHint} » (id national résolu : #{$speciesID})<br>";
             continue;
         }
 
-        $speciesID = (int)$form["pokemon_id"];
-        $formCode  = $form["form_code"];
+        // Crée la forme si elle n'existe pas
+        $actualFormID = getOrCreateForm($pdo, $speciesID, $formCode);
 
         // Vérifie si cette forme est autorisée dans ce Pokédex
         if (!in_array($formCode, $currentAllowed, true) && $formCode !== "base") {
-            // La forme existe mais le Pokédex ne la veut pas → on ignore
             continue;
         }
 
-        // Insère dans pokedex_entries
-        $pdo->prepare("INSERT IGNORE INTO pokedex_entries (pokedex_id, pokemon_id) VALUES (?, ?)")->execute([$pokedexID, $formID]);
+        // ---------- Exclusivité de version ----------
+        $version = null;
+        if (is_array($entry)) {
+            if (isset($entry['version']) && $entry['version'] !== '') {
+                $version = strtolower(trim($entry['version']));
+            } elseif (isset($entry['columns'])) {
+                foreach (['Version', 'Exclusive', 'Exclusif', 'Jeu', 'Game'] as $col) {
+                    if (!empty($entry['columns'][$col])) {
+                        $version = strtolower(trim($entry['columns'][$col]));
+                        break;
+                    }
+                }
+            }
+        }
+        // Normalisation des valeurs acceptées
+        if (!in_array($version, ['scarlet', 'violet', 'ecarlate', 'la', null], true)) {
+            $version = null;
+        }
+        if ($version === 'ecarlate') $version = 'scarlet';
+
+        // Insère dans pokedex_entries avec la position régionale et la version
+        $pdo->prepare("
+            INSERT INTO pokedex_entries (pokedex_id, pokemon_id, position, version)
+            VALUES (?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE position = VALUES(position), version = VALUES(version)
+        ")->execute([$pokedexID, $actualFormID, $regionalNumber, $version]);
     }
 
     echo "✔ Import terminé (Pokedex {$codeUpper})<br>";

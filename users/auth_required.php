@@ -1,6 +1,8 @@
 <?php
-session_start();
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
+    $current_script = basename($_SERVER['SCRIPT_FILENAME']);
+    if ($current_script !== 'login.php' && $current_script !== 'register.php') {
+        header('Location: /users/login.php');
+        exit;
+    }
 }

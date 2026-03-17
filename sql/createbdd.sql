@@ -28,8 +28,8 @@ CREATE TABLE pokedex_list (
 
 CREATE TABLE pokemon (
     id INT PRIMARY KEY,
-    sprite VARCHAR(20),
-    shiny_sprite VARCHAR(20),
+    sprite VARCHAR(255),
+    shiny_sprite VARCHAR(255),
 
     -- Langues
     name_fr VARCHAR(255),
@@ -50,10 +50,18 @@ CREATE TABLE pokemon_forms (
 CREATE TABLE pokedex_entries (
     pokedex_id INT NOT NULL,
     pokemon_id VARCHAR(100) NOT NULL,
+    position INT NULL,              -- numéro régional (ordre d'affichage dans ce pokédex)
     PRIMARY KEY (pokedex_id, pokemon_id),
     FOREIGN KEY (pokedex_id) REFERENCES pokedex_list(id),
     FOREIGN KEY (pokemon_id) REFERENCES pokemon_forms(id)
 );
+
+-- Si la table existe déjà, ajouter la colonne position :
+-- ALTER TABLE pokedex_entries ADD COLUMN IF NOT EXISTS position INT NULL;
+
+-- Exclusivité de version (scarlet / violet / null = les deux)
+ALTER TABLE pokedex_entries
+  ADD COLUMN IF NOT EXISTS version VARCHAR(20) NULL DEFAULT NULL;
 
 
 CREATE TABLE user_progress (
@@ -61,6 +69,7 @@ CREATE TABLE user_progress (
     pokedex_id INT NOT NULL,
     pokemon_id VARCHAR(100) NOT NULL,
     caught BOOLEAN DEFAULT FALSE,
+    shiny  BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY (user_id, pokedex_id, pokemon_id),
     FOREIGN KEY (user_id) REFERENCES users(id),

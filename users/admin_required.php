@@ -1,7 +1,6 @@
 <?php
-require_once 'auth_required.php'; // démarre session
+include_once '../include.php';
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    http_response_code(403);
-    echo "Interdit: accès administrateur seulement.";
+    header('Location: /index.php');
     exit;
 }

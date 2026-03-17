@@ -1,7 +1,5 @@
 <?php
-require_once 'config/pdo.php';
-require_once 'config/constantesPDO.php';
-require_once 'auth_required.php';
+include_once '../include.php';
 
 $pdo = DB::getPDO();
 $cfg = ConstantesPDO::getInstance()->getConfig();
@@ -12,7 +10,6 @@ $userID = $_SESSION['user_id'];
 $msg = '';
 $errors = [];
 
-// Récupérer user
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$userID]);
 $user = $stmt->fetch();
@@ -21,7 +18,6 @@ if (!$user) {
     die("Utilisateur introuvable.");
 }
 
-// Mise à jour du profil
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_info'])) {
         $username = trim($_POST['username'] ?? '');
@@ -38,20 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $old = $_POST['old_password'] ?? '';
         $new = $_POST['new_password'] ?? '';
 
-        // vérifier ancien mot de passe
         $salt = ($user['role'] === 'admin') ? $adminSalt : $userSalt;
         if (!password_verify($old . $salt, $user['password_hash'])) {
             $errors[] = "Mot de passe actuel incorrect.";
         } elseif (strlen($new) < 6) {
-            $errors[] = "Nouveau mot de passe trop court.";
+            $errors[] = "Nouveau mot de passe trop court (minimum 6 caractères).";
         } else {
             $newHash = password_hash($new . $salt, PASSWORD_BCRYPT);
             $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
             $stmt->execute([$newHash, $userID]);
-            $msg = "Mot de passe changé.";
+            $msg = "Mot de passe changé avec succès.";
         }
     }
-    // refetch user
+
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
     $stmt->execute([$userID]);
     $user = $stmt->fetch();
@@ -59,35 +54,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><title>Mon profil</title></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon profil - Mon Pokédex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
 <body>
-<h1>Profil</h1>
-<?php if ($msg) echo "<p style='color:green'>$msg</p>"; ?>
-<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto gap-1">
+                <li class="nav-item"><a class="nav-link active" href="profile.php">Profil</a></li>
+                <?php if ($_SESSION['role'] === 'admin'): ?>
+                    <li class="nav-item"><a class="nav-link" href="../admin/admin_import.php">Admin</a></li>
+                <?php endif; ?>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<form method="post">
-  <h3>Informations</h3>
-  <label>Email (login): <strong><?= htmlspecialchars($user['email']) ?></strong></label><br><br>
-  <label>Nom (username) : <input type="text" name="username" value="<?= htmlspecialchars($user['username'] ?? '') ?>"></label><br><br>
-  <label>Langue :
-    <select name="preferred_language">
-      <option value="fr" <?= $user['preferred_language'] === 'fr' ? 'selected' : '' ?>>Français</option>
-      <option value="en" <?= $user['preferred_language'] === 'en' ? 'selected' : '' ?>>English</option>
-      <option value="de" <?= $user['preferred_language'] === 'de' ? 'selected' : '' ?>>Deutsch</option>
-    </select>
-  </label><br><br>
-  <button name="update_info" type="submit">Mettre à jour</button>
-</form>
+<div class="profile-wrap">
+    <div class="profile-header">
+        <div class="profile-avatar">👤</div>
+        <div class="fw-800" style="font-size:1.2rem;font-weight:800"><?= htmlspecialchars($user['username'] ?? $user['email']) ?></div>
+        <div style="font-size:.8rem;opacity:.7;margin-top:.2rem"><?= htmlspecialchars($user['email']) ?></div>
+    </div>
 
-<hr>
+    <?php if ($msg): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
+    <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger">
+            <?php foreach ($errors as $e): ?>
+                <div><?= htmlspecialchars($e) ?></div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
-<form method="post">
-  <h3>Changer mot de passe</h3>
-  <label>Mot de passe actuel: <input type="password" name="old_password" required></label><br><br>
-  <label>Nouveau mot de passe: <input type="password" name="new_password" required></label><br><br>
-  <button name="change_password" type="submit">Changer</button>
-</form>
+    <div class="card mb-4">
+        <div class="card-header fw-semibold">Informations personnelles</div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email (identifiant)</label>
+                    <input type="text" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-semibold">Pseudo</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                           value="<?= htmlspecialchars($user['username'] ?? '') ?>"
+                           placeholder="Votre pseudo de Dresseur">
+                </div>
+                <div class="mb-3">
+                    <label for="preferred_language" class="form-label fw-semibold">Langue préférée</label>
+                    <select class="form-select" id="preferred_language" name="preferred_language">
+                        <option value="fr" <?= $user['preferred_language'] === 'fr' ? 'selected' : '' ?>>Français</option>
+                        <option value="en" <?= $user['preferred_language'] === 'en' ? 'selected' : '' ?>>English</option>
+                        <option value="de" <?= $user['preferred_language'] === 'de' ? 'selected' : '' ?>>Deutsch</option>
+                    </select>
+                </div>
+                <button name="update_info" type="submit" class="btn btn-primary">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
 
-<p><a href="logout.php">Déconnexion</a></p>
+    <div class="card mb-4">
+        <div class="card-header fw-semibold">Changer le mot de passe</div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="old_password" class="form-label fw-semibold">Mot de passe actuel</label>
+                    <input type="password" class="form-control" id="old_password" name="old_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label fw-semibold">Nouveau mot de passe</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password"
+                           placeholder="Minimum 6 caractères" required>
+                </div>
+                <button name="change_password" type="submit" class="btn btn-warning">Changer le mot de passe</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="logout.php" class="btn btn-outline-danger">Se déconnecter</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
