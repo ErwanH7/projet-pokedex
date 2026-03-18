@@ -5,3 +5,4 @@ csv
 img
 
 script/backup_db.sh
+create_admin.php
