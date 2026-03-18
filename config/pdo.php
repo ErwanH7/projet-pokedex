@@ -23,8 +23,7 @@ class DB {
 
             $dbCfg = $cfg['db'];
 
-            // Utilise 127.0.0.1 plutôt que localhost pour éviter les erreurs de socket Unix
-            $host   = ($dbCfg['host'] ?? 'localhost') === 'localhost' ? '127.0.0.1' : ($dbCfg['host'] ?? '127.0.0.1');
+            $host   = $dbCfg['host'] ?? 'localhost';
             $port   = $dbCfg['port'] ?? 3306;
             $dbname = $dbCfg['dbname'] ?? '';
             $user   = $dbCfg['username'] ?? '';

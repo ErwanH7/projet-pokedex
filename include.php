@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
         'path'     => '/',
         'secure'   => isset($_SERVER['HTTPS']),
         'httponly' => true,
-        'samesite' => 'Strict',
+        'samesite' => 'Lax',   // Strict bloque les cookies lors des redirections HTTP→HTTPS (Hostinger)
     ]);
     session_start();
 }

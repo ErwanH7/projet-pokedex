@@ -51,7 +51,7 @@ if ($isLoggedIn) {
         </p>
         <div class="d-flex gap-3 justify-content-center flex-wrap mt-4">
             <a href="users/register.php" class="btn btn-danger btn-lg fw-semibold px-5">Créer un compte gratuit</a>
-            <a href="users/login.php" class="btn btn-outline-light btn-lg fw-semibold px-5">Se connecter</a>
+            <a href="users/login.php" class="btn btn-light btn-lg fw-semibold px-5 text-dark">Se connecter</a>
         </div>
     </div>
 </div>
