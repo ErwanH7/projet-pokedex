@@ -109,5 +109,7 @@ try {
 
 } catch (PDOException $e) {
     error_log("Erreur update_caught: " . $e->getMessage());
-    echo json_encode(['ok' => false, 'error' => 'Erreur serveur.']);
+    // En dev local on peut voir l'erreur réelle, en prod on masque
+    $detail = (($_SERVER['REMOTE_ADDR'] ?? '') === '127.0.0.1') ? $e->getMessage() : 'Erreur serveur.';
+    echo json_encode(['ok' => false, 'error' => $detail]);
 }
