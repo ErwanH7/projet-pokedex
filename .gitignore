@@ -6,3 +6,4 @@ img
 
 script/backup_db.sh
 create_admin.php
+db_test.php
