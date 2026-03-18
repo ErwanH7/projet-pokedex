@@ -374,6 +374,34 @@ body {
 }
 .footer-link:hover { color: #fca5a5 !important; }
 
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+/* Navbar : logo réduit sous lg */
+@media (max-width: 991px) {
+    .navbar-brand img { height: 52px !important; }
+}
+
+/* Mobile : petits écrans */
+@media (max-width: 576px) {
+    /* Auth pages */
+    .auth-wrap { align-items: flex-start; padding-top: 2rem; }
+
+    /* Landing hero */
+    .landing-hero { padding: 2rem 0; }
+    .landing-stat-grid { grid-template-columns: 1fr; }
+
+    /* Sub-bar pokédex : compacter les compteurs */
+    .sub-bar .count-lbl { font-size: .52rem; letter-spacing: 0; }
+    .sub-bar .count-val { font-size: .95rem; }
+
+    /* Sprites pokémon plus petits (3 colonnes sur mobile) */
+    .poke-img { width: 96px !important; height: 96px !important; }
+}
+
+@media (max-width: 380px) {
+    .poke-img { width: 78px !important; height: 78px !important; }
+}
+
 /* ── Page Statistiques ───────────────────────────────────────────────────── */
 .stats-card {
     background: white;

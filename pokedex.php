@@ -102,7 +102,11 @@ foreach ($species as $sid => $data) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($pokedex['name']) ?> — Mon Pokédex</title>
-    <link rel="icon" type="image/png" href="/img/logo_pokedex.png">
+    <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
     <meta name="description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars($pokedex['name']) ?>.">
     <meta property="og:title" content="<?= htmlspecialchars($pokedex['name']) ?> — Mon Pokédex">
     <meta property="og:description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars($pokedex['name']) ?>.">
@@ -166,6 +170,15 @@ foreach ($species as $sid => $data) {
         }
         .version-badge.scarlet { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
         .version-badge.violet  { background: #ede9fe; color: #7c3aed; border: 1px solid #c4b5fd; }
+
+        @media (max-width: 576px) {
+            .poke-img { width: 96px !important; height: 96px !important; }
+            .sub-bar .count-lbl { display: none; }
+            .sub-bar .count-val { font-size: .9rem; }
+        }
+        @media (max-width: 380px) {
+            .poke-img { width: 78px !important; height: 78px !important; }
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -173,7 +186,10 @@ foreach ($species as $sid => $data) {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/index.php"><img src="/img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>
                 <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>

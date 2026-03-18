@@ -33,7 +33,11 @@ $rows = $stmt->fetchAll();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Statistiques — Mon Pokédex</title>
-    <link rel="icon" type="image/png" href="/img/logo_pokedex.png">
+    <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
     <meta name="description" content="Consulte tes statistiques de captures Pokémon par jeu.">
     <meta property="og:title" content="Statistiques — Mon Pokédex">
     <meta property="og:description" content="Consulte tes statistiques de captures Pokémon par jeu.">
@@ -156,6 +160,18 @@ $rows = $stmt->fetchAll();
         }
         .summary-val  { font-size: 1.8rem; font-weight: 800; }
         .summary-lbl  { font-size: .72rem; color: #94a3b8; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-top: .2rem; }
+
+        @media (max-width: 576px) {
+            .stat-row {
+                grid-template-columns: 62px 1fr 40px 20px;
+                gap: 5px;
+            }
+            .stat-count { display: none; }
+            .stat-label { font-size: .72rem; }
+            .stat-pct   { font-size: .78rem; }
+            .summary-box { padding: .75rem 1rem; min-width: 100px; }
+            .summary-val { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -163,7 +179,10 @@ $rows = $stmt->fetchAll();
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid px-4">
     <a class="navbar-brand" href="index.php"><img src="img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav ms-auto gap-1">
         <li class="nav-item"><a class="nav-link active" href="/stats.php">Statistiques</a></li>
         <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>

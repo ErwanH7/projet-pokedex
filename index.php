@@ -15,7 +15,11 @@ if ($isLoggedIn) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mon Pokédex — Projet web d'Erwan Hoarau</title>
     <link rel="canonical" href="https://projet-pokedex.erwanhoarau.com/">
-    <link rel="icon" type="image/png" href="/img/logo_pokedex.png">
+    <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
     <meta name="description" content="Projet web d'Erwan Hoarau — tracker Pokémon pour suivre captures, chromatiques et Alphas sur tous tes jeux.">
     <meta name="author" content="Erwan Hoarau">
     <meta property="og:title" content="Mon Pokédex — Projet web d'Erwan Hoarau">
@@ -55,7 +59,10 @@ if ($isLoggedIn) {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid px-4">
     <a class="navbar-brand" href="index.php"><img src="img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav ms-auto gap-1">
         <?php if ($isLoggedIn): ?>
           <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>
