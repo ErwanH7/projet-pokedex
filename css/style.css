@@ -300,3 +300,63 @@ body {
 .sub-bar .count-block { line-height: 1; }
 .sub-bar .count-val   { font-size: 1.1rem; font-weight: 800; }
 .sub-bar .count-lbl   { font-size: .6rem; color: #94a3b8; font-weight: 600; letter-spacing: .03em; }
+
+/* ── Landing page (visiteurs non connectés) ─────────────────────────────── */
+.landing-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #7f1d1d 100%);
+    color: white;
+    padding: 4rem 1rem;
+}
+.landing-title {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+.landing-subtitle {
+    font-size: 1.1rem;
+    opacity: .85;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.landing-feature-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s, transform .2s;
+}
+.landing-feature-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.landing-feature-icon { font-size: 2.5rem; }
+.landing-explain-band { background: #1e293b; color: white; }
+.landing-explain-band p { opacity: .85; }
+.landing-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.landing-stat-box {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+}
+.landing-stat-number { font-size: 1.6rem; font-weight: 800; color: #fca5a5; }
+.landing-stat-label  { font-size: .75rem; opacity: .7; margin-top: .25rem; }
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.site-footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 1rem 0;
+    font-size: .82rem;
+    margin-top: 2rem;
+}
+.footer-link {
+    color: #94a3b8 !important;
+    font-size: .82rem;
+    text-decoration: underline;
+    vertical-align: baseline;
+}
+.footer-link:hover { color: #fca5a5 !important; }

@@ -3,11 +3,11 @@ include_once '../include.php';
 
 $pdo = DB::getPDO();
 $cfg = ConstantesPDO::getInstance()->getConfig();
-$userSalt = $cfg['login']['user']['salt'] ?? '';
+$userSalt  = $cfg['login']['user']['salt']  ?? '';
 $adminSalt = $cfg['login']['admin']['salt'] ?? '';
 
 $userID = $_SESSION['user_id'];
-$msg = '';
+$msg    = '';
 $errors = [];
 
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
@@ -18,17 +18,56 @@ if (!$user) {
     die("Utilisateur introuvable.");
 }
 
+// ── Validation pseudo ─────────────────────────────────────────────────────────
+$FORBIDDEN_WORDS = [
+    'admin','moderateur','staff','support','root','system','superuser',
+    'hitler','nazi','nigger','nigga','pute','salope','connard','batard','fdp',
+    'enculé','encule','merde','chier','bite','couille','con','cul',
+];
+
+function validate_username(string $username, array $forbiddenWords): ?string {
+    if ($username === '') return null;
+    if (strlen($username) < 3)  return "Le pseudo doit faire au moins 3 caractères.";
+    if (strlen($username) > 20) return "Le pseudo ne peut pas dépasser 20 caractères.";
+    if (!preg_match('/^[a-zA-Z0-9_\-]+$/', $username))
+        return "Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.";
+    $lower = strtolower($username);
+    foreach ($forbiddenWords as $word) {
+        if (str_contains($lower, $word)) return "Ce pseudo n'est pas autorisé.";
+    }
+    return null;
+}
+
+function validate_password(string $password): ?string {
+    if (strlen($password) < 8)
+        return "Le mot de passe doit contenir au moins 8 caractères.";
+    if (!preg_match('/[A-Z]/', $password))
+        return "Le mot de passe doit contenir au moins une majuscule.";
+    if (!preg_match('/[a-z]/', $password))
+        return "Le mot de passe doit contenir au moins une minuscule.";
+    if (!preg_match('/[0-9]/', $password))
+        return "Le mot de passe doit contenir au moins un chiffre.";
+    if (!preg_match('/[!@#$%^&*()\-_=+\[\]{};:\'",.<>?\/\\\\|`~]/', $password))
+        return "Le mot de passe doit contenir au moins un caractère spécial (!@#\$%…).";
+    return null;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
+
     if (isset($_POST['update_info'])) {
         $username = trim($_POST['username'] ?? '');
-        $lang = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de']) ? $_POST['preferred_language'] : 'fr';
+        $lang     = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de']) ? $_POST['preferred_language'] : 'fr';
 
-        $stmt = $pdo->prepare("UPDATE users SET username = ?, preferred_language = ? WHERE id = ?");
-        $stmt->execute([$username ?: null, $lang, $userID]);
-
-        $_SESSION['username'] = $username;
-        $msg = "Profil mis à jour.";
+        $usernameError = validate_username($username, $FORBIDDEN_WORDS);
+        if ($usernameError !== null) {
+            $errors[] = $usernameError;
+        } else {
+            $stmt = $pdo->prepare("UPDATE users SET username = ?, preferred_language = ? WHERE id = ?");
+            $stmt->execute([$username ?: null, $lang, $userID]);
+            $_SESSION['username'] = $username;
+            $msg = "Profil mis à jour.";
+        }
     }
 
     if (isset($_POST['change_password'])) {
@@ -38,13 +77,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $salt = ($user['role'] === 'admin') ? $adminSalt : $userSalt;
         if (!password_verify($old . $salt, $user['password_hash'])) {
             $errors[] = "Mot de passe actuel incorrect.";
-        } elseif (strlen($new) < 6) {
-            $errors[] = "Nouveau mot de passe trop court (minimum 6 caractères).";
         } else {
-            $newHash = password_hash($new . $salt, PASSWORD_BCRYPT);
-            $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
-            $stmt->execute([$newHash, $userID]);
-            $msg = "Mot de passe changé avec succès.";
+            $pwError = validate_password($new);
+            if ($pwError !== null) {
+                $errors[] = $pwError;
+            } else {
+                $newHash = password_hash($new . $salt, PASSWORD_BCRYPT);
+                $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
+                $stmt->execute([$newHash, $userID]);
+                $msg = "Mot de passe changé avec succès.";
+            }
         }
     }
 
@@ -109,7 +151,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="username" class="form-label fw-semibold">Pseudo</label>
                     <input type="text" class="form-control" id="username" name="username"
                            value="<?= htmlspecialchars($user['username'] ?? '') ?>"
-                           placeholder="Votre pseudo de Dresseur">
+                           placeholder="Votre pseudo"
+                           maxlength="20">
+                    <div class="form-text">Lettres, chiffres, tirets et underscores uniquement. Pas d'espaces.</div>
                 </div>
                 <div class="mb-3">
                     <label for="preferred_language" class="form-label fw-semibold">Langue préférée</label>
@@ -136,7 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-3">
                     <label for="new_password" class="form-label fw-semibold">Nouveau mot de passe</label>
                     <input type="password" class="form-control" id="new_password" name="new_password"
-                           placeholder="Minimum 6 caractères" required>
+                           placeholder="8 car. min, 1 maj, 1 min, 1 chiffre, 1 spécial" required>
+                    <div class="form-text">8 caractères minimum · 1 majuscule · 1 minuscule · 1 chiffre · 1 caractère spécial</div>
                 </div>
                 <button name="change_password" type="submit" class="btn btn-warning">Changer le mot de passe</button>
             </form>
