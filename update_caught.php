@@ -12,8 +12,9 @@ $pokemonID = trim($_POST['pokemon_id'] ?? '');
 $pokedexID = (int)($_POST['pokedex_id'] ?? 0);
 $caught    = isset($_POST['caught']) ? (int)$_POST['caught'] : null;
 $shiny     = isset($_POST['shiny'])  ? (int)$_POST['shiny']  : null;
+$alpha     = isset($_POST['alpha'])  ? (int)$_POST['alpha']  : null;
 
-if (!$userID || !$pokemonID || !$pokedexID) {
+if (!$userID || !$pokemonID || !$pokedexID || ($caught === null && $shiny === null && $alpha === null)) {
     echo json_encode(['ok' => false, 'error' => "Paramètres manquants"]);
     exit;
 }
@@ -24,9 +25,10 @@ if (!preg_match('/^\d+(_[a-z0-9\-]+)?$/i', $pokemonID)) {
     exit;
 }
 
-// Limiter caught et shiny à 0 ou 1
+// Limiter caught, shiny et alpha à 0 ou 1
 if ($caught !== null) $caught = $caught ? 1 : 0;
 if ($shiny  !== null) $shiny  = $shiny  ? 1 : 0;
+if ($alpha  !== null) $alpha  = $alpha  ? 1 : 0;
 
 // Vérifier que l'utilisateur existe vraiment en BDD (session périmée possible)
 $stmtUser = $pdo->prepare("SELECT id FROM users WHERE id = ?");
@@ -74,6 +76,14 @@ try {
         ")->execute([$userID, $pokedexID, $pokemonID, $shiny]);
     }
 
+    if ($alpha !== null) {
+        $pdo->prepare("
+            INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny, alpha)
+            VALUES (?, ?, ?, 0, 0, ?)
+            ON DUPLICATE KEY UPDATE alpha = VALUES(alpha)
+        ")->execute([$userID, $pokedexID, $pokemonID, $alpha]);
+    }
+
     // Sync vers le Pokédex National (sens unique : régional → national seulement)
     $stmtCode = $pdo->prepare("SELECT code FROM pokedex_list WHERE id = ?");
     $stmtCode->execute([$pokedexID]);
@@ -87,20 +97,54 @@ try {
         $nationalID = $stmtNat->fetchColumn();
 
         if ($nationalID) {
-            // Sync direct, pas besoin que le pokemon soit dans pokedex_entries du national
+            // Sync National : si on coche → toujours cocher.
+            // Si on décoche → décocher seulement si le pokémon n'est coché dans aucun autre dex.
             if ($caught !== null) {
-                $pdo->prepare("
-                    INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
-                    VALUES (?, ?, ?, ?, 0)
-                    ON DUPLICATE KEY UPDATE caught = VALUES(caught)
-                ")->execute([$userID, $nationalID, $pokemonID, $caught]);
+                if ($caught === 1) {
+                    $pdo->prepare("
+                        INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+                        VALUES (?, ?, ?, 1, 0)
+                        ON DUPLICATE KEY UPDATE caught = 1
+                    ")->execute([$userID, $nationalID, $pokemonID]);
+                } else {
+                    $stmtCheck = $pdo->prepare("
+                        SELECT COUNT(*) FROM user_progress
+                        WHERE user_id = ? AND pokemon_id = ?
+                          AND pokedex_id NOT IN (?, ?) AND caught = 1
+                    ");
+                    $stmtCheck->execute([$userID, $pokemonID, $pokedexID, $nationalID]);
+                    if ((int)$stmtCheck->fetchColumn() === 0) {
+                        $pdo->prepare("
+                            INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+                            VALUES (?, ?, ?, 0, 0)
+                            ON DUPLICATE KEY UPDATE caught = 0
+                        ")->execute([$userID, $nationalID, $pokemonID]);
+                    }
+                }
             }
+
             if ($shiny !== null) {
-                $pdo->prepare("
-                    INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
-                    VALUES (?, ?, ?, 0, ?)
-                    ON DUPLICATE KEY UPDATE shiny = VALUES(shiny)
-                ")->execute([$userID, $nationalID, $pokemonID, $shiny]);
+                if ($shiny === 1) {
+                    $pdo->prepare("
+                        INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+                        VALUES (?, ?, ?, 0, 1)
+                        ON DUPLICATE KEY UPDATE shiny = 1
+                    ")->execute([$userID, $nationalID, $pokemonID]);
+                } else {
+                    $stmtCheck = $pdo->prepare("
+                        SELECT COUNT(*) FROM user_progress
+                        WHERE user_id = ? AND pokemon_id = ?
+                          AND pokedex_id NOT IN (?, ?) AND shiny = 1
+                    ");
+                    $stmtCheck->execute([$userID, $pokemonID, $pokedexID, $nationalID]);
+                    if ((int)$stmtCheck->fetchColumn() === 0) {
+                        $pdo->prepare("
+                            INSERT INTO user_progress (user_id, pokedex_id, pokemon_id, caught, shiny)
+                            VALUES (?, ?, ?, 0, 0)
+                            ON DUPLICATE KEY UPDATE shiny = 0
+                        ")->execute([$userID, $nationalID, $pokemonID]);
+                    }
+                }
             }
         }
     }

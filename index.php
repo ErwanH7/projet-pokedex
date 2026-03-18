@@ -25,6 +25,7 @@ if ($isLoggedIn) {
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto gap-1">
         <?php if ($isLoggedIn): ?>
+          <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>
           <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>
           <?php if ($_SESSION['role'] === 'admin'): ?>
             <li class="nav-item"><a class="nav-link" href="admin/admin_import.php">Administration</a></li>

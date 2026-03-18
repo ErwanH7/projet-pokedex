@@ -17,6 +17,10 @@ $pokedexID = $pokedex['id'];
 $VERSION_DEXES = ['EV', 'LA', 'ZA'];
 $showVersion   = in_array(strtoupper($dexCode), $VERSION_DEXES);
 
+// Pokédexes avec suivi Alpha/Baron
+$ALPHA_DEXES = ['ZAL', 'EV', 'LA', 'EV1', 'EV2', 'ZAH'];
+$showAlpha   = in_array(strtoupper($dexCode), $ALPHA_DEXES);
+
 // Récupérer toutes les entrées avec sprites de la forme
 $stmt = $pdo->prepare("
     SELECT
@@ -63,29 +67,33 @@ foreach ($entries as $row) {
 
 // Progression : clé = pokemon_id (ID de forme, ex: "154" ou "154_m")
 $stmt = $pdo->prepare("
-    SELECT pokemon_id, caught, shiny FROM user_progress
+    SELECT pokemon_id, caught, shiny, alpha FROM user_progress
     WHERE user_id = ? AND pokedex_id = ?
 ");
 $stmt->execute([$userID, $pokedexID]);
 $progressData = [];
 foreach ($stmt->fetchAll() as $r) {
-    $progressData[$r['pokemon_id']] = ['caught' => (int)$r['caught'], 'shiny' => (int)$r['shiny']];
+    $progressData[$r['pokemon_id']] = ['caught' => (int)$r['caught'], 'shiny' => (int)$r['shiny'], 'alpha' => (int)$r['alpha']];
 }
 
 // Compteurs : 1 espèce = cochée si au moins 1 de ses formes est cochée
 $totalSpecies = count($species);
 $caughtNormal = 0;
 $caughtShiny  = 0;
+$caughtAlpha  = 0;
 foreach ($species as $sid => $data) {
     $speciesNormal = false;
     $speciesShiny  = false;
+    $speciesAlpha  = false;
     foreach ($data['forms'] as $pid => $_) {
-        $fp = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0];
+        $fp = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
         if ($fp['caught']) $speciesNormal = true;
         if ($fp['shiny'])  $speciesShiny  = true;
+        if ($fp['alpha'])  $speciesAlpha  = true;
     }
     if ($speciesNormal) $caughtNormal++;
     if ($speciesShiny)  $caughtShiny++;
+    if ($speciesAlpha)  $caughtAlpha++;
 }
 ?>
 <!DOCTYPE html>
@@ -110,14 +118,14 @@ foreach ($species as $sid => $data) {
 
         .sprites-row {
             display: flex; justify-content: center; align-items: flex-end;
-            gap: 4px;
+            gap: 2px;
         }
         .sprite-col {
-            display: flex; flex-direction: column; align-items: center; gap: 2px;
+            display: flex; flex-direction: column; align-items: center; gap: 1px;
             flex: 1;
         }
         .poke-img {
-            width: 72px; height: 72px; object-fit: contain;
+            width: 126px; height: 126px; object-fit: contain;
             image-rendering: pixelated;
         }
         .poke-img.shiny-sprite { filter: drop-shadow(0 0 4px #f59e0b); }
@@ -129,9 +137,19 @@ foreach ($species as $sid => $data) {
             display: flex; flex-direction: column; align-items: center;
             font-size: 0.68rem; gap: 2px; margin-top: 4px;
         }
-        .check-col input[type=checkbox] { width: 15px; height: 15px; cursor: pointer; }
+        .check-col input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; }
+        .sprite-label { cursor: pointer; display: block; line-height: 0; }
+        .sprite-label:hover .poke-img { opacity: .8; transform: scale(1.05); transition: opacity .15s, transform .15s; }
         .check-col .lbl-normal { color: #198754; font-weight: 600; }
         .check-col .lbl-shiny  { color: #a855f7; font-weight: 600; }
+        .check-col .lbl-alpha  { color: #f97316; font-weight: 600; }
+        .alpha-row { margin-top: 4px; padding-top: 4px; border-top: 1px dashed #e5e7eb; width: 100%; }
+        .alpha-help {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 13px; height: 13px; border-radius: 50%;
+            background: #f97316; color: white; font-size: .6rem; font-weight: 700;
+            cursor: help; vertical-align: middle; margin-left: 2px;
+        }
 
         .version-badge {
             display: inline-block; font-size: 0.6rem; font-weight: 700;
@@ -148,6 +166,7 @@ foreach ($species as $sid => $data) {
         <a class="navbar-brand" href="/index.php"><img src="/img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>
                 <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>
                 <li class="nav-item"><a class="nav-link" href="/users/logout.php">Déconnexion</a></li>
             </ul>
@@ -173,12 +192,18 @@ foreach ($species as $sid => $data) {
                 <div class="count-val" style="color:var(--pk-purple)" id="count-shiny"><?= $caughtShiny ?></div>
                 <div class="count-lbl">Shiny / <?= $totalSpecies ?></div>
             </div>
+            <?php if ($showAlpha): ?>
+            <div class="count-block">
+                <div class="count-val" style="color:#f97316" id="count-alpha"><?= $caughtAlpha ?></div>
+                <div class="count-lbl">Alpha / <?= $totalSpecies ?></div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
 
 <div class="container-fluid px-3 mt-3">
-    <div class="row row-cols-3 g-2">
+    <div class="row row-cols-3 g-1">
     <?php foreach ($species as $speciesID => $data):
         // Couleur de la carte = vérifie toutes les formes de l'espèce
         $cardCaught = false;
@@ -216,9 +241,10 @@ foreach ($species as $sid => $data) {
 
                 <?php foreach ($data['forms'] as $pid => $form):
                     // Progression propre à cette forme
-                    $formProg   = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0];
+                    $formProg   = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
                     $formCaught = $formProg['caught'];
                     $formShiny  = $formProg['shiny'];
+                    $formAlpha  = $formProg['alpha'];
                     $safeId  = htmlspecialchars($pid);
                     $altName = htmlspecialchars($data['name']);
                     $noSprite = '<div style="width:72px;height:72px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:1.2rem">?</div>';
@@ -231,10 +257,12 @@ foreach ($species as $sid => $data) {
                     <div class="sprites-row">
                         <!-- Sprite normal -->
                         <div class="sprite-col">
-                            <?php if ($form['sprite']): ?>
-                                <img src="<?= htmlspecialchars($form['sprite']) ?>"
-                                     class="poke-img" alt="<?= $altName ?>">
-                            <?php else: ?><?= $noSprite ?><?php endif; ?>
+                            <label class="sprite-label" for="chk-normal-<?= $safeId ?>">
+                                <?php if ($form['sprite']): ?>
+                                    <img src="<?= htmlspecialchars($form['sprite']) ?>"
+                                         class="poke-img" alt="<?= $altName ?>">
+                                <?php else: ?><?= $noSprite ?><?php endif; ?>
+                            </label>
                             <div class="check-col">
                                 <input type="checkbox"
                                        id="chk-normal-<?= $safeId ?>"
@@ -246,12 +274,14 @@ foreach ($species as $sid => $data) {
 
                         <!-- Sprite shiny -->
                         <div class="sprite-col">
-                            <?php if ($form['shiny']): ?>
-                                <img src="<?= htmlspecialchars($form['shiny']) ?>"
-                                     class="poke-img shiny-sprite" alt="<?= $altName ?> shiny">
-                            <?php else: ?>
-                                <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0">sprite shiny<br>non disponible</div>
-                            <?php endif; ?>
+                            <label class="sprite-label" for="chk-shiny-<?= $safeId ?>">
+                                <?php if ($form['shiny']): ?>
+                                    <img src="<?= htmlspecialchars($form['shiny']) ?>"
+                                         class="poke-img shiny-sprite" alt="<?= $altName ?> shiny">
+                                <?php else: ?>
+                                    <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0;cursor:pointer">sprite shiny<br>non disponible</div>
+                                <?php endif; ?>
+                            </label>
                             <div class="check-col">
                                 <input type="checkbox"
                                        id="chk-shiny-<?= $safeId ?>"
@@ -261,6 +291,20 @@ foreach ($species as $sid => $data) {
                             </div>
                         </div>
                     </div>
+                    <?php if ($showAlpha): ?>
+                    <div class="alpha-row check-col">
+                        <input type="checkbox"
+                               id="chk-alpha-<?= $safeId ?>"
+                               onchange="saveCaught(this,'<?= $safeId ?>',<?= $speciesID ?>,'<?= $pokedexID ?>','alpha')"
+                               <?= $formAlpha ? 'checked' : '' ?>>
+                        <span class="lbl-alpha">⬆ Alpha
+                            <span class="alpha-help"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="« Alpha » est le terme générique. Inclut aussi les Pokémon Baron (Légendes Arceus) et les Pokémon puissants de taille XXL dans EV.">?</span>
+                        </span>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -328,14 +372,24 @@ function updateCardStyle(speciesId) {
 }
 
 function recalcCounters() {
-    let normalCount = 0, shinyCount = 0;
+    let normalCount = 0, shinyCount = 0, alphaCount = 0;
+    const alphaEl = document.getElementById('count-alpha');
     document.querySelectorAll('.poke-card').forEach(card => {
         if ([...card.querySelectorAll('[id^="chk-normal-"]')].some(cb => cb.checked)) normalCount++;
         if ([...card.querySelectorAll('[id^="chk-shiny-"]')].some(cb => cb.checked))  shinyCount++;
+        if ([...card.querySelectorAll('[id^="chk-alpha-"]')].some(cb => cb.checked))  alphaCount++;
     });
     document.getElementById('count-normal').textContent = normalCount;
     document.getElementById('count-shiny').textContent  = shinyCount;
+    if (alphaEl) alphaEl.textContent = alphaCount;
 }
+
+// Init tooltips Bootstrap
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+        new bootstrap.Tooltip(el, { trigger: 'hover focus' });
+    });
+});
 
 const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => {

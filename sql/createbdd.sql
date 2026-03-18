@@ -70,6 +70,7 @@ CREATE TABLE user_progress (
     pokemon_id VARCHAR(100) NOT NULL,
     caught BOOLEAN DEFAULT FALSE,
     shiny  BOOLEAN DEFAULT FALSE,
+    alpha  BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY (user_id, pokedex_id, pokemon_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
