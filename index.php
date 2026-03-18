@@ -13,7 +13,40 @@ if ($isLoggedIn) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mon Pokédex — Suivi de collection</title>
+    <title>Mon Pokédex — Projet web d'Erwan Hoarau</title>
+    <link rel="canonical" href="https://projet-pokedex.erwanhoarau.com/">
+    <link rel="icon" type="image/png" href="/img/logo_pokedex.png">
+    <meta name="description" content="Projet web d'Erwan Hoarau — tracker Pokémon pour suivre captures, chromatiques et Alphas sur tous tes jeux.">
+    <meta name="author" content="Erwan Hoarau">
+    <meta property="og:title" content="Mon Pokédex — Projet web d'Erwan Hoarau">
+    <meta property="og:description" content="Projet web d'Erwan Hoarau — tracker Pokémon pour suivre captures, chromatiques et Alphas sur tous tes jeux.">
+    <meta property="og:image" content="https://projet-pokedex.erwanhoarau.com/img/logo_pokedex.png">
+    <meta property="og:url" content="https://projet-pokedex.erwanhoarau.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://projet-pokedex.erwanhoarau.com/img/logo_pokedex.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://erwanhoarau.com/#erwan",
+          "name": "Erwan Hoarau",
+          "url": "https://erwanhoarau.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Mon Pokédex",
+          "url": "https://projet-pokedex.erwanhoarau.com",
+          "description": "Tracker Pokémon pour suivre sa progression sur tous les jeux de la série.",
+          "author": { "@id": "https://erwanhoarau.com/#erwan" },
+          "creator": { "@id": "https://erwanhoarau.com/#erwan" }
+        }
+      ]
+    }
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="https://feedeko.timdidelot.fr/widget.js" data-api-key="fw_c5484d61c80c4047bada0949ab973c6a" defer></script>
@@ -21,7 +54,7 @@ if ($isLoggedIn) {
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid px-4">
-    <a class="navbar-brand" href="index.php"><img src="img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+    <a class="navbar-brand" href="index.php"><img src="img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto gap-1">
         <?php if ($isLoggedIn): ?>
@@ -44,7 +77,7 @@ if ($isLoggedIn) {
 <!-- ══ LANDING PAGE (visiteurs non connectés) ══════════════════════════════ -->
 <div class="landing-hero">
     <div class="container text-center py-5">
-        <img src="img/logo_pokedex.svg" alt="Mon Pokédex" style="height:110px;" class="mb-4">
+        <img src="img/logo_pokedex.png" alt="Mon Pokédex" style="height:110px;" class="mb-4">
         <h1 class="landing-title">Suivez votre collection Pokémon</h1>
         <p class="landing-subtitle">
             Mon Pokédex est un tracker en ligne qui vous permet de cocher les Pokémon que vous avez capturés

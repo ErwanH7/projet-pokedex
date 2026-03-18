@@ -101,7 +101,16 @@ foreach ($species as $sid => $data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars($pokedex['name']) ?></title>
+    <title><?= htmlspecialchars($pokedex['name']) ?> — Mon Pokédex</title>
+    <link rel="icon" type="image/png" href="/img/logo_pokedex.png">
+    <meta name="description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars($pokedex['name']) ?>.">
+    <meta property="og:title" content="<?= htmlspecialchars($pokedex['name']) ?> — Mon Pokédex">
+    <meta property="og:description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars($pokedex['name']) ?>.">
+    <meta property="og:image" content="<?= htmlspecialchars($baseUrl) ?>/img/logo_pokedex.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="<?= htmlspecialchars($baseUrl) ?>/img/logo_pokedex.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <meta name="csrf-token" content="<?= htmlspecialchars(csrf_token()) ?>">
@@ -163,7 +172,7 @@ foreach ($species as $sid => $data) {
 
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/index.php"><img src="/img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+        <a class="navbar-brand" href="/index.php"><img src="/img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://projet-pokedex.erwanhoarau.com/</loc>
+    <priority>1.0</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://projet-pokedex.erwanhoarau.com/users/register.php</loc>
+    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://projet-pokedex.erwanhoarau.com/users/login.php</loc>
+    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+</urlset>

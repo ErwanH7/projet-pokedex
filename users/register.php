@@ -101,13 +101,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inscription - Mon Pokédex</title>
+    <link rel="icon" type="image/png" href="/img/logo_pokedex.png">
+    <meta name="description" content="Crée ton compte et commence à suivre ta collection Pokémon.">
+    <meta property="og:title" content="Inscription - Mon Pokédex">
+    <meta property="og:description" content="Crée ton compte et commence à suivre ta collection Pokémon.">
+    <meta property="og:image" content="<?= htmlspecialchars($baseUrl) ?>/img/logo_pokedex.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="<?= htmlspecialchars($baseUrl) ?>/img/logo_pokedex.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-4">
-        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto gap-1">
                 <li class="nav-item"><a class="nav-link" href="login.php">Connexion</a></li>

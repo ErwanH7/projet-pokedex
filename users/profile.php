@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-4">
-        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto gap-1">
                 <li class="nav-item"><a class="nav-link active" href="profile.php">Profil</a></li>

@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /config/
+Disallow: /sql/
+Disallow: /csv/
+Disallow: /script/
+Disallow: /users/profile.php
+Disallow: /users/logout.php
+Disallow: /pokedex.php
+Disallow: /stats.php
+
+Sitemap: https://projet-pokedex.erwanhoarau.com/sitemap.xml

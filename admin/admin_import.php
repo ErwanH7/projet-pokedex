@@ -10,7 +10,7 @@
 <body class="bg-light">
 <nav class="navbar navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.svg" alt="Mon Pokédex" style="height:72px;"></a>
+        <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
         <span class="navbar-text text-white">Administration</span>
     </div>
 </nav>

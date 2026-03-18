@@ -68,3 +68,7 @@ require_once 'config/constantesPDO.php';
  * Vérifie si l'utilisateur est authentifié pour accéder aux pages protégées.
  */
 require_once 'users/auth_required.php';
+
+// ── URL de base (utilisée pour les meta og:image) ────────────────────────────
+$_proto  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$baseUrl = $_proto . '://' . $_SERVER['HTTP_HOST'];
