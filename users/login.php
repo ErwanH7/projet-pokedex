@@ -10,7 +10,8 @@ if (isset($_SESSION['user_id'])) {
 
 $pdo = DB::getPDO();
 $cfg = ConstantesPDO::getInstance()->getConfig();
-$userSalt = $cfg['login']['user']['salt'] ?? '';
+$userSalt  = $cfg['login']['user']['salt']  ?? '';
+$adminSalt = $cfg['login']['admin']['salt'] ?? '';
 
 $error = '';
 
@@ -29,7 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$user) {
             $error = "Compte introuvable.";
         } else {
-            if (password_verify($password . $userSalt, $user['password_hash'])) {
+            $salt = ($user['role'] === 'admin') ? $adminSalt : $userSalt;
+            if (password_verify($password . $salt, $user['password_hash'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['username'] = $user['username'];

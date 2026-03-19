@@ -55,7 +55,7 @@ class DB {
             }
 
             if ($lastError !== null) {
-                die("Erreur de connexion à la base de données : " . $lastError->getMessage());
+                throw new RuntimeException("Erreur de connexion BDD : " . $lastError->getMessage());
             }
         }
 

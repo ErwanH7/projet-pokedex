@@ -1,7 +1,5 @@
 <?php
 include_once 'include.php';
-$pdo = DB::getPDO();
-
 header('Content-Type: application/json');
 
 // Vérification CSRF
@@ -20,7 +18,7 @@ if (!$userID || !$pokemonID || !$pokedexID || ($caught === null && $shiny === nu
 }
 
 // Valider le format de pokemon_id : digits optionnellement suivis de _alphanum
-if (!preg_match('/^\d+(_[a-z0-9\-]+)?$/i', $pokemonID)) {
+if (!preg_match('/^\d+(_[a-z0-9_\-]+)?$/i', $pokemonID)) {
     echo json_encode(['ok' => false, 'error' => "Identifiant de forme invalide"]);
     exit;
 }
@@ -30,17 +28,18 @@ if ($caught !== null) $caught = $caught ? 1 : 0;
 if ($shiny  !== null) $shiny  = $shiny  ? 1 : 0;
 if ($alpha  !== null) $alpha  = $alpha  ? 1 : 0;
 
-// Vérifier que l'utilisateur existe vraiment en BDD (session périmée possible)
-$stmtUser = $pdo->prepare("SELECT id FROM users WHERE id = ?");
-$stmtUser->execute([$userID]);
-if (!$stmtUser->fetchColumn()) {
-    // Session invalide : forcer la déconnexion
-    session_destroy();
-    echo json_encode(['ok' => false, 'error' => 'SESSION_EXPIRED']);
-    exit;
-}
-
 try {
+    $pdo = DB::getPDO();
+
+    // Vérifier que l'utilisateur existe vraiment en BDD (session périmée possible)
+    $stmtUser = $pdo->prepare("SELECT id FROM users WHERE id = ?");
+    $stmtUser->execute([$userID]);
+    if (!$stmtUser->fetchColumn()) {
+        session_destroy();
+        echo json_encode(['ok' => false, 'error' => 'SESSION_EXPIRED']);
+        exit;
+    }
+
     // S'assurer que la forme existe dans pokemon_forms (au cas où FK active)
     $stmtFormCheck = $pdo->prepare("SELECT id FROM pokemon_forms WHERE id = ?");
     $stmtFormCheck->execute([$pokemonID]);
@@ -151,9 +150,8 @@ try {
 
     echo json_encode(['ok' => true]);
 
-} catch (PDOException $e) {
+} catch (Exception $e) {
     error_log("Erreur update_caught: " . $e->getMessage());
-    // En dev local on peut voir l'erreur réelle, en prod on masque
-    $detail = 'Erreur serveur.';
-    echo json_encode(['ok' => false, 'error' => $detail]);
+    $isLocal = in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1']);
+    echo json_encode(['ok' => false, 'error' => $isLocal ? $e->getMessage() : 'Erreur serveur.']);
 }

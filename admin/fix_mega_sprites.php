@@ -91,7 +91,7 @@ $rows = $pdo->query("
     SELECT pf.id, pf.pokemon_id, pf.form_code, p.name_en
     FROM pokemon_forms pf
     LEFT JOIN pokemon p ON p.id = pf.pokemon_id
-    WHERE pf.form_code LIKE 'mega%'
+    WHERE pf.form_code REGEXP 'mega'
       AND (pf.sprite IS NULL OR pf.sprite = '')
     ORDER BY pf.pokemon_id
 ")->fetchAll(PDO::FETCH_ASSOC);
@@ -131,7 +131,10 @@ foreach ($rows as $row) {
         'mega'   => '-mega',
         'mega_x' => '-mega-x',
         'mega_y' => '-mega-y',
-        default  => null,
+        'mega_z'       => '-mega-z',
+        'droopy_mega'  => '-droopy-mega',
+        'stretchy_mega'=> '-stretchy-mega',
+        default        => null,
     };
 
     $fSprite = null;
@@ -166,15 +169,17 @@ foreach ($rows as $row) {
                 foreach ($pokData['forms'] ?? [] as $formRef) {
                     $slug = $formRef['name'] ?? '';
                     // Vérifier que le slug se termine bien par -mega, -mega-x ou -mega-y
-                    if (!preg_match('/-mega(-[xy])?$/', $slug)) continue;
+                    if (!preg_match('/-mega(-[xyz])?$/', $slug)) continue;
                     $fd = pokeapi_get("https://pokeapi.co/api/v2/pokemon-form/{$slug}/");
                     if ($fd && !empty($fd['sprites']['front_default'])) {
                         $isX = str_ends_with($slug, '-x');
                         $isY = str_ends_with($slug, '-y');
+                        $isZ = str_ends_with($slug, '-z');
                         $match = match($formCode) {
-                            'mega'   => !$isX && !$isY,
+                            'mega'   => !$isX && !$isY && !$isZ,
                             'mega_x' => $isX,
                             'mega_y' => $isY,
+                            'mega_z' => $isZ,
                             default  => false,
                         };
                         if ($match) {
@@ -197,6 +202,7 @@ foreach ($rows as $row) {
         $candidates = match($formCode) {
             'mega'   => [
                 "{$id4}{$nameClean}-Mega.png",
+                "{$id4}{$nameClean}-Curly_Mega.png",
             ],
             'mega_x' => [
                 "{$id4}{$nameClean}-Mega X.png",
@@ -205,6 +211,19 @@ foreach ($rows as $row) {
             'mega_y' => [
                 "{$id4}{$nameClean}-Mega Y.png",
                 "{$id4}{$nameClean}-Mega-Y.png",
+            ],
+            'mega_z' => [
+                "{$id4}{$nameClean}-Mega_Z.png",
+                "{$id4}{$nameClean}-Mega Z.png",
+                "{$id4}{$nameClean}-Mega-Z.png",
+            ],
+            'droopy_mega' => [
+                "{$id4}{$nameClean}-Droopy_Mega.png",
+                "{$id4}{$nameClean}-Droopy Mega.png",
+            ],
+            'stretchy_mega' => [
+                "{$id4}{$nameClean}-Stretchy_Mega.png",
+                "{$id4}{$nameClean}-Stretchy Mega.png",
             ],
             default  => [],
         };
