@@ -34,8 +34,11 @@ class DB {
 
             // Ordre : TCP 127.0.0.1 (fonctionne sur XAMPP et Hostinger),
             //         puis socket Unix (fallback Linux)
+            $host = $dbCfg['host'] ?? 'localhost';
             $candidates = [
+                "mysql:host={$host};port=$port;dbname=$dbname;charset=utf8mb4",
                 "mysql:host=127.0.0.1;port=$port;dbname=$dbname;charset=utf8mb4",
+                "mysql:unix_socket=/var/run/mysqld/mysqld.sock;dbname=$dbname;charset=utf8mb4",
                 "mysql:unix_socket=/var/lib/mysql/mysql.sock;dbname=$dbname;charset=utf8mb4",
                 "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
             ];
