@@ -40,16 +40,18 @@ function bulbagarden_url(string $filename): ?string {
 }
 
 // ---------- DB ----------
+require_once __DIR__ . '/../config/pdo.php';
 require_once __DIR__ . '/../config/constantesPDO.php';
 $config = ConstantesPDO::getInstance()->getConfig();
 $cfg    = $config['db'] ?? null;
 if (!$cfg) { out("❌ Config DB introuvable."); exit; }
 
-$pdo = new PDO(
-    "mysql:host={$cfg['host']};dbname={$cfg['dbname']};charset=utf8mb4",
-    $cfg['username'], $cfg['password'],
-    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-);
+try {
+    $pdo = DB::getPDO();
+} catch (Exception $e) {
+    out("❌ Connexion DB : " . $e->getMessage());
+    exit;
+}
 
 // Corrections d'IDs connus incorrects dans pokemon_forms
 // (pokemon_id enregistré avec le mauvais numéro national)
@@ -116,8 +118,7 @@ foreach ($rows as $row) {
 
     // Reconnexion si besoin
     try { $pdo->query('SELECT 1'); } catch (PDOException $e) {
-        $pdo = new PDO("mysql:host={$cfg['host']};dbname={$cfg['dbname']};charset=utf8mb4",
-            $cfg['username'], $cfg['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $pdo = DB::getPDO();
         $updateStmt = $pdo->prepare("UPDATE pokemon_forms SET sprite = ?, shiny_sprite = ? WHERE id = ?");
     }
 
