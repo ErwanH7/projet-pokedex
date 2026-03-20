@@ -56,7 +56,7 @@ out("🔍 {$total} formes sans sprite trouvées…\n");
 
 if ($total === 0) { out("✅ Aucun sprite manquant !"); exit; }
 
-// form_code → suffixe dans l'URL PokéAPI
+// form_code → suffixe PokéAPI (cas généraux)
 $suffixMap = [
     'alolan'         => 'alola',
     'galarian'       => 'galar',
@@ -67,6 +67,38 @@ $suffixMap = [
     'paldean_combat' => 'paldea-combat',
     'paldean_blaze'  => 'paldea-blaze',
     'paldean_aqua'   => 'paldea-aqua',
+    // Oricorio : PokéAPI utilise "pom-pom" avec tiret
+    'pompom'         => 'pom-pom',
+    // Ogerpon : les masques ont le suffixe "-mask"
+    'wellspring'     => 'wellspring-mask',
+    'hearthflame'    => 'hearthflame-mask',
+    'cornerstone'    => 'cornerstone-mask',
+];
+
+// Slugs directs forcés pour les cas qui échappent à la logique automatique
+$slugOverrides = [
+    '555_galarian'       => 'darmanitan-galar',
+    '128_paldean_combat' => 'tauros-paldea-combat',
+    '128_paldean_blaze'  => 'tauros-paldea-blaze',
+    '128_paldean_aqua'   => 'tauros-paldea-aqua',
+    // Alcremie : les variantes de crème n'ont pas de sprite distinct dans PokéAPI
+    // → on utilise directement pokemon-form avec le bon tiret
+    '869_ruby_cream'     => 'alcremie-ruby-cream',
+    '869_matcha_cream'   => 'alcremie-matcha-cream',
+    '869_mint_cream'     => 'alcremie-mint-cream',
+    '869_lemon_cream'    => 'alcremie-lemon-cream',
+    '869_salted_cream'   => 'alcremie-salted-cream',
+    '869_ruby_swirl'     => 'alcremie-ruby-swirl',
+    '869_caramel_swirl'  => 'alcremie-caramel-swirl',
+    '869_rainbow_swirl'  => 'alcremie-rainbow-swirl',
+    // Sinistea / Polteageist
+    '854_antique'        => 'sinistea-antique',
+    '855_antique'        => 'polteageist-antique',
+    // Poltchageist / Sinistcha
+    '1012_antique'       => 'poltchageist-antique',
+    '1013_masterpiece'   => 'sinistcha-masterpiece',
+    // Xerneas active
+    '716_active'         => 'xerneas-active',
 ];
 
 function name_to_slug(string $nameEn): string {
@@ -92,7 +124,6 @@ foreach ($missing as $row) {
 
     $fSprite = $fShiny = null;
 
-    // Maintenir la connexion
     try { $pdo->query('SELECT 1'); }
     catch (PDOException $e) { $pdo = DB::getPDO(); }
 
@@ -111,10 +142,15 @@ foreach ($missing as $row) {
 
     // ── Autres formes ─────────────────────────────────────────────────
     } else {
-        $suffix       = $suffixMap[$formCode] ?? str_replace('_', '-', $formCode);
-        $expectedSlug = $nameSlug . '-' . $suffix;
+        // Slug à utiliser : override forcé ou construction automatique
+        if (isset($slugOverrides[$formId])) {
+            $expectedSlug = $slugOverrides[$formId];
+        } else {
+            $suffix       = $suffixMap[$formCode] ?? str_replace('_', '-', $formCode);
+            $expectedSlug = $nameSlug . '-' . $suffix;
+        }
 
-        // 1. Via pokemon-species → varieties (le plus fiable pour formes régionales)
+        // 1. Via pokemon-species → varieties (fiable pour formes régionales)
         if (!isset($speciesCache["sp_{$natId}"])) {
             $speciesCache["sp_{$natId}"] = pokeapi_get(
                 "https://pokeapi.co/api/v2/pokemon-species/{$natId}/"
@@ -159,6 +195,26 @@ foreach ($missing as $row) {
                 $fShiny  = $pk['sprites']['front_shiny']   ?? null;
             }
         }
+
+        // 4. Dernier recours : sprite de base de l'espèce (pour formes sans sprite distinct)
+        if (!$fSprite) {
+            if (!isset($speciesCache["pk_{$natId}"])) {
+                $speciesCache["pk_{$natId}"] = pokeapi_get(
+                    "https://pokeapi.co/api/v2/pokemon/{$natId}/"
+                );
+            }
+            $pk = $speciesCache["pk_{$natId}"];
+            if ($pk) {
+                $fSprite = $pk['sprites']['front_default'] ?? null;
+                $fShiny  = $pk['sprites']['front_shiny']   ?? null;
+            }
+            if ($fSprite) {
+                out("  ~ {$formId} → sprite de base utilisé (forme sans sprite distinct)");
+                $updateStmt->execute([$fSprite, $fShiny, $formId]);
+                $fixed++;
+                continue;
+            }
+        }
     }
 
     if ($fSprite) {
@@ -167,7 +223,8 @@ foreach ($missing as $row) {
         out("  ✔ {$formId}");
     } else {
         $notFound++;
-        out("  ⚠ {$formId} ({$nameSlug}-{$formCode}) — introuvable");
+        $label = $expectedSlug ?? ($nameSlug . '-' . $formCode);
+        out("  ⚠ {$formId} ({$label}) — introuvable");
     }
 }
 
