@@ -10,13 +10,20 @@ $pdo    = new PDO(
     [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
 );
 
-// S'assurer que les colonnes existent
-try {
-    $pdo->exec("ALTER TABLE pokedex_list
-        ADD COLUMN IF NOT EXISTS name_en VARCHAR(100) NULL AFTER name,
-        ADD COLUMN IF NOT EXISTS name_de VARCHAR(100) NULL AFTER name_en,
-        ADD COLUMN IF NOT EXISTS name_es VARCHAR(100) NULL AFTER name_de");
-} catch (PDOException $e) { /* colonnes déjà présentes */ }
+// Ajoute les colonnes si elles n'existent pas (compatible MySQL 5.x / 8.x)
+function add_column_if_missing(PDO $pdo, string $table, string $column, string $definition): void {
+    $exists = $pdo->prepare(
+        "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?"
+    );
+    $exists->execute([$table, $column]);
+    if (!(int)$exists->fetchColumn()) {
+        $pdo->exec("ALTER TABLE `{$table}` ADD COLUMN `{$column}` {$definition}");
+    }
+}
+add_column_if_missing($pdo, 'pokedex_list', 'name_en', 'VARCHAR(100) NULL AFTER name');
+add_column_if_missing($pdo, 'pokedex_list', 'name_de', 'VARCHAR(100) NULL AFTER name_en');
+add_column_if_missing($pdo, 'pokedex_list', 'name_es', 'VARCHAR(100) NULL AFTER name_de');
 
 $msg = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
