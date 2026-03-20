@@ -73,6 +73,7 @@
                         </optgroup>
                         <optgroup label="Spéciaux">
                             <option value="mega-evolutions">Méga Évolutions (tous jeux)</option>
+                            <option value="formes-alternatives">Formes Alternatives (régionales, multi-formes, ♂/♀)</option>
                         </optgroup>
                     </select>
                 </div>
