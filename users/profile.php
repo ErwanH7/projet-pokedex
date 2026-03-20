@@ -15,7 +15,7 @@ $stmt->execute([$userID]);
 $user = $stmt->fetch();
 
 if (!$user) {
-    die("Utilisateur introuvable.");
+    die(t('profile_error_not_found'));
 }
 
 // ── Validation pseudo ─────────────────────────────────────────────────────────
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['update_info'])) {
         $username = trim($_POST['username'] ?? '');
-        $lang     = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de']) ? $_POST['preferred_language'] : 'fr';
+        $lang     = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de','es']) ? $_POST['preferred_language'] : 'fr';
 
         $usernameError = validate_username($username, $FORBIDDEN_WORDS);
         if ($usernameError !== null) {
@@ -65,8 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $stmt = $pdo->prepare("UPDATE users SET username = ?, preferred_language = ? WHERE id = ?");
             $stmt->execute([$username ?: null, $lang, $userID]);
-            $_SESSION['username'] = $username;
-            $msg = "Profil mis à jour.";
+            $_SESSION['username']           = $username;
+            $_SESSION['preferred_language'] = $lang;
+            $appLang = $lang; // Appliquer immédiatement pour cette requête
+            $msg = t('profile_success_info');
         }
     }
 
@@ -85,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $newHash = password_hash($new . $salt, PASSWORD_BCRYPT);
                 $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
                 $stmt->execute([$newHash, $userID]);
-                $msg = "Mot de passe changé avec succès.";
+                $msg = t('profile_success_password');
             }
         }
     }
@@ -96,11 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= $appLang ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mon profil - Mon Pokédex</title>
+    <title><?= t('nav_profile') ?> - Mon Pokédex</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 </head>
@@ -108,16 +110,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-4">
         <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="<?= t('nav_menu_label') ?>">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto gap-1">
-                <li class="nav-item"><a class="nav-link active" href="profile.php">Profil</a></li>
+                <li class="nav-item"><a class="nav-link active" href="profile.php"><?= t('nav_profile') ?></a></li>
                 <?php if ($_SESSION['role'] === 'admin'): ?>
-                    <li class="nav-item"><a class="nav-link" href="../admin/admin_import.php">Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../admin/admin_import.php"><?= t('nav_admin') ?></a></li>
                 <?php endif; ?>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Déconnexion</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.php"><?= t('nav_logout') ?></a></li>
             </ul>
         </div>
     </div>
@@ -142,56 +144,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <div class="card mb-4">
-        <div class="card-header fw-semibold">Informations personnelles</div>
+        <div class="card-header fw-semibold"><?= t('profile_personal_info') ?></div>
         <div class="card-body">
             <form method="post">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
-                    <label class="form-label fw-semibold">Email (identifiant)</label>
+                    <label class="form-label fw-semibold"><?= t('profile_email_label') ?></label>
                     <input type="text" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="username" class="form-label fw-semibold">Pseudo</label>
+                    <label for="username" class="form-label fw-semibold"><?= t('profile_username_label') ?></label>
                     <input type="text" class="form-control" id="username" name="username"
                            value="<?= htmlspecialchars($user['username'] ?? '') ?>"
-                           placeholder="Votre pseudo"
+                           placeholder="<?= t('profile_username_label') ?>"
                            maxlength="20">
-                    <div class="form-text">Lettres, chiffres, tirets et underscores uniquement. Pas d'espaces.</div>
+                    <div class="form-text"><?= t('profile_username_hint') ?></div>
                 </div>
                 <div class="mb-3">
-                    <label for="preferred_language" class="form-label fw-semibold">Langue préférée</label>
+                    <label for="preferred_language" class="form-label fw-semibold"><?= t('profile_lang_label') ?></label>
                     <select class="form-select" id="preferred_language" name="preferred_language">
                         <option value="fr" <?= $user['preferred_language'] === 'fr' ? 'selected' : '' ?>>Français</option>
                         <option value="en" <?= $user['preferred_language'] === 'en' ? 'selected' : '' ?>>English</option>
                         <option value="de" <?= $user['preferred_language'] === 'de' ? 'selected' : '' ?>>Deutsch</option>
+                        <option value="es" <?= $user['preferred_language'] === 'es' ? 'selected' : '' ?>>Español</option>
                     </select>
                 </div>
-                <button name="update_info" type="submit" class="btn btn-primary">Mettre à jour</button>
+                <button name="update_info" type="submit" class="btn btn-primary"><?= t('profile_update_btn') ?></button>
             </form>
         </div>
     </div>
 
     <div class="card mb-4">
-        <div class="card-header fw-semibold">Changer le mot de passe</div>
+        <div class="card-header fw-semibold"><?= t('profile_change_password_section') ?></div>
         <div class="card-body">
             <form method="post">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
-                    <label for="old_password" class="form-label fw-semibold">Mot de passe actuel</label>
+                    <label for="old_password" class="form-label fw-semibold"><?= t('profile_old_password_label') ?></label>
                     <input type="password" class="form-control" id="old_password" name="old_password" required>
                 </div>
                 <div class="mb-3">
-                    <label for="new_password" class="form-label fw-semibold">Nouveau mot de passe</label>
+                    <label for="new_password" class="form-label fw-semibold"><?= t('profile_new_password_label') ?></label>
                     <input type="password" class="form-control" id="new_password" name="new_password"
-                           placeholder="8 car. min, 1 maj, 1 min, 1 chiffre, 1 spécial" required>
-                    <div class="form-text">8 caractères minimum · 1 majuscule · 1 minuscule · 1 chiffre · 1 caractère spécial</div>
+                           placeholder="<?= t('profile_new_password_hint') ?>" required>
+                    <div class="form-text"><?= t('profile_new_password_hint_long') ?></div>
                 </div>
-                <button name="change_password" type="submit" class="btn btn-warning">Changer le mot de passe</button>
+                <button name="change_password" type="submit" class="btn btn-warning"><?= t('profile_change_password_btn') ?></button>
             </form>
         </div>
     </div>
 
-    <a href="logout.php" class="btn btn-outline-danger">Se déconnecter</a>
+    <a href="logout.php" class="btn btn-outline-danger"><?= t('profile_logout_btn') ?></a>
 </div>
 
 

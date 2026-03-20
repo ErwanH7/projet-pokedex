@@ -206,7 +206,7 @@ if ($csvType === "pokedex") {
     $stmt->execute([$codeUpper]);
     $pokedexID = $stmt->fetchColumn();
     if (!$pokedexID) {
-        $pdo->prepare("INSERT INTO pokedex_list (code, name) VALUES (?, ?)")->execute([$codeUpper, "Pokédex " . $codeUpper]);
+        $pdo->prepare("INSERT INTO pokedex_list (code, name, name_en, name_de) VALUES (?, ?, NULL, NULL)")->execute([$codeUpper, "Pokédex " . $codeUpper]);
         $pokedexID = $pdo->lastInsertId();
     }
 

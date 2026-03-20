@@ -21,38 +21,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if ($email === '' || $password === '') {
-        $error = "Email et mot de passe requis.";
+        $error = t('error_email_password_required');
     } else {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         if (!$user) {
-            $error = "Compte introuvable.";
+            $error = t('error_account_not_found');
         } else {
             $salt = ($user['role'] === 'admin') ? $adminSalt : $userSalt;
             if (password_verify($password . $salt, $user['password_hash'])) {
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
+                $_SESSION['user_id']            = $user['id'];
+                $_SESSION['email']              = $user['email'];
+                $_SESSION['username']           = $user['username'];
+                $_SESSION['role']               = $user['role'];
+                $_SESSION['preferred_language'] = $user['preferred_language'] ?? 'fr';
 
                 $redirect = ($user['role'] === 'admin') ? '../admin/admin_import.php' : '../index.php';
                 header('Location: ' . $redirect);
                 exit;
             } else {
-                $error = "Mot de passe incorrect.";
+                $error = t('error_wrong_password');
             }
         }
     }
 }
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= $appLang ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connexion - Mon Pokédex</title>
+    <title><?= t('login_title') ?> - Mon Pokédex</title>
     <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
@@ -73,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-4">
         <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="<?= t('nav_menu_label') ?>">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto gap-1">
-                <li class="nav-item"><a class="nav-link active" href="login.php">Connexion</a></li>
-                <li class="nav-item"><a class="nav-link" href="register.php">Inscription</a></li>
+                <li class="nav-item"><a class="nav-link active" href="login.php"><?= t('nav_login') ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="register.php"><?= t('nav_register') ?></a></li>
             </ul>
         </div>
     </div>
@@ -89,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card auth-card">
         <div class="auth-header">
             <div class="auth-icon">⬤</div>
-            <h2>Connexion</h2>
+            <h2><?= t('login_title') ?></h2>
         </div>
         <div class="card-body p-4">
             <?php if ($error): ?>
@@ -101,25 +102,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="post">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
-                    <label for="email" class="form-label fw-semibold">Adresse email</label>
+                    <label for="email" class="form-label fw-semibold"><?= t('login_email_label') ?></label>
                     <input type="email" class="form-control" id="email" name="email"
                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-                           placeholder="exemple@email.com" required autofocus>
+                           placeholder="<?= t('login_email_placeholder') ?>" required autofocus>
                 </div>
                 <div class="mb-4">
-                    <label for="password" class="form-label fw-semibold">Mot de passe</label>
+                    <label for="password" class="form-label fw-semibold"><?= t('login_password_label') ?></label>
                     <input type="password" class="form-control" id="password" name="password"
-                           placeholder="Votre mot de passe" required>
+                           placeholder="<?= t('login_password_placeholder') ?>" required>
                 </div>
                 <button type="submit" class="btn btn-danger w-100 py-2 fw-semibold">
-                    Se connecter
+                    <?= t('login_submit_btn') ?>
                 </button>
             </form>
 
             <hr class="my-4">
             <p class="text-center mb-0">
-                Pas encore de compte ?
-                <a href="register.php" class="text-danger fw-semibold">Créer un compte</a>
+                <?= t('login_no_account') ?>
+                <a href="register.php" class="text-danger fw-semibold"><?= t('login_create_link') ?></a>
             </p>
         </div>
     </div>

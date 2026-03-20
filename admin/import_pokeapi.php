@@ -85,8 +85,22 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label fw-semibold">Nom affiché</label>
+                    <label class="form-label fw-semibold">Nom affiché <span class="badge bg-secondary">FR</span></label>
                     <input type="text" class="form-control" name="pokedex_name" placeholder="Ex: Pokédex de Kalos" maxlength="100" required>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nom anglais <span class="badge bg-success">EN</span></label>
+                        <input type="text" class="form-control" name="pokedex_name_en" placeholder="Ex: Kalos Pokédex" maxlength="100">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nom allemand <span class="badge bg-warning text-dark">DE</span></label>
+                        <input type="text" class="form-control" name="pokedex_name_de" placeholder="Ex: Kalos-Pokédex" maxlength="100">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nom espagnol <span class="badge bg-danger">ES</span></label>
+                        <input type="text" class="form-control" name="pokedex_name_es" placeholder="Ex: Pokédex de Kalos" maxlength="100">
+                    </div>
                 </div>
 
                 <div class="mb-4">

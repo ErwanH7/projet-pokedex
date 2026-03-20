@@ -6,12 +6,13 @@ $userID  = $_SESSION['user_id'];
 $dexCode = $_GET['dex'] ?? null;
 if (!$dexCode) die("Aucun Pokédex spécifié.");
 
-$stmt = $pdo->prepare("SELECT id, name FROM pokedex_list WHERE code = ?");
+$stmt = $pdo->prepare("SELECT id, name, name_en, name_de, name_es FROM pokedex_list WHERE code = ?");
 $stmt->execute([$dexCode]);
 $pokedex = $stmt->fetch();
 if (!$pokedex) die("Pokédex introuvable.");
 
 $pokedexID = $pokedex['id'];
+$nameKey   = 'name_' . $appLang; // Colonne du nom selon la langue de l'utilisateur
 
 // Pokédexes avec exclusivités de version
 $VERSION_DEXES = ['EV', 'LA', 'ZA'];
@@ -31,6 +32,7 @@ $stmt = $pdo->prepare("
         p.name_fr,
         p.name_en,
         p.name_de,
+        p.name_es,
         pf.sprite,
         pf.shiny_sprite,
         pf.form_code
@@ -67,19 +69,19 @@ foreach ($entries as $row) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $appLang ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars($pokedex['name']) ?> — Mon Pokédex</title>
+    <title><?= htmlspecialchars(dex_name($pokedex)) ?> — Mon Pokédex</title>
     <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
     <link rel="manifest" href="/img/favicon/site.webmanifest">
-    <meta name="description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars($pokedex['name']) ?>.">
-    <meta property="og:title" content="<?= htmlspecialchars($pokedex['name']) ?> — Mon Pokédex">
-    <meta property="og:description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars($pokedex['name']) ?>.">
+    <meta name="description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars(dex_name($pokedex)) ?>.">
+    <meta property="og:title" content="<?= htmlspecialchars(dex_name($pokedex)) ?> — Mon Pokédex">
+    <meta property="og:description" content="Suis ta progression dans le Pokédex <?= htmlspecialchars(dex_name($pokedex)) ?>.">
     <meta property="og:image" content="<?= htmlspecialchars($baseUrl) ?>/img/logo_pokedex.png">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_FR">
@@ -156,14 +158,14 @@ foreach ($entries as $row) {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/index.php"><img src="/img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="<?= t('nav_menu_label') ?>">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>
-                <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>
-                <li class="nav-item"><a class="nav-link" href="/users/logout.php">Déconnexion</a></li>
+                <li class="nav-item"><a class="nav-link" href="/stats.php"><?= t('nav_stats') ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="/users/profile.php"><?= t('nav_profile') ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="/users/logout.php"><?= t('nav_logout') ?></a></li>
             </ul>
         </div>
     </div>
@@ -171,26 +173,26 @@ foreach ($entries as $row) {
 
 <div class="sub-bar sticky-top px-3 py-2" style="top:100px;z-index:999">
     <div class="d-flex align-items-center gap-2">
-        <a href="/index.php" class="btn btn-sm btn-outline-secondary flex-shrink-0">&larr; Retour</a>
-        <span class="dex-title d-none d-sm-block text-truncate flex-shrink-0" style="font-size:.95rem;max-width:140px"><?= htmlspecialchars($pokedex['name']) ?></span>
+        <a href="/index.php" class="btn btn-sm btn-outline-secondary flex-shrink-0"><?= t('dex_back') ?></a>
+        <span class="dex-title d-none d-sm-block text-truncate flex-shrink-0" style="font-size:.95rem;max-width:140px"><?= htmlspecialchars(dex_name($pokedex)) ?></span>
         <div class="position-relative flex-grow-1">
             <input type="search" id="pokeFilter" class="form-control form-control-sm pe-5"
-                   placeholder="Filtrer un Pokémon…" autocomplete="off">
+                   placeholder="<?= t('dex_filter_placeholder') ?>" autocomplete="off">
             <span id="filterCount" class="filter-count-badge" hidden></span>
         </div>
         <div class="d-flex gap-3 text-center flex-shrink-0 ms-1">
             <div class="count-block">
                 <div class="count-val text-success" id="count-normal"><?= $caughtNormal ?></div>
-                <div class="count-lbl">Normal / <?= $totalForms ?></div>
+                <div class="count-lbl"><?= t('dex_count_normal_label') ?> / <?= $totalForms ?></div>
             </div>
             <div class="count-block">
                 <div class="count-val" style="color:var(--pk-purple)" id="count-shiny"><?= $caughtShiny ?></div>
-                <div class="count-lbl">Shiny / <?= $totalForms ?></div>
+                <div class="count-lbl"><?= t('dex_count_shiny_label') ?> / <?= $totalForms ?></div>
             </div>
             <?php if ($showAlpha): ?>
             <div class="count-block">
                 <div class="count-val" style="color:#f97316" id="count-alpha"><?= $caughtAlpha ?></div>
-                <div class="count-lbl">Alpha / <?= $totalForms ?></div>
+                <div class="count-lbl"><?= t('dex_count_alpha_label') ?> / <?= $totalForms ?></div>
             </div>
             <?php endif; ?>
         </div>
@@ -204,21 +206,22 @@ foreach ($entries as $row) {
         $fp        = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
         $cardClass = ($fp['caught'] && $fp['shiny']) ? 'both' : ($fp['caught'] ? 'normal' : ($fp['shiny'] ? 'shiny' : ''));
         $safeId    = htmlspecialchars($pid);
-        $altName   = htmlspecialchars($row['name_fr']);
+        $altName   = htmlspecialchars($row[$nameKey] ?: $row['name_fr']);
         $noSprite  = '<div style="width:72px;height:72px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:1.2rem">?</div>';
     ?>
         <div class="col">
             <div class="poke-card <?= $cardClass ?>" id="card-<?= $safeId ?>"
                  data-name-fr="<?= htmlspecialchars(mb_strtolower($row['name_fr'])) ?>"
                  data-name-en="<?= htmlspecialchars(mb_strtolower($row['name_en'])) ?>"
-                 data-name-de="<?= htmlspecialchars(mb_strtolower($row['name_de'])) ?>">
+                 data-name-de="<?= htmlspecialchars(mb_strtolower($row['name_de'])) ?>"
+                 data-name-es="<?= htmlspecialchars(mb_strtolower($row['name_es'] ?? '')) ?>">
                 <div class="poke-num"><?= $row['position'] ? '#' . str_pad((string)$row['position'], 3, '0', STR_PAD_LEFT) : '—' ?></div>
                 <?php if ($showVersion && $row['version']): ?>
                     <?php
                         $vLabel = match($row['version']) {
-                            'scarlet' => 'Écarlate',
-                            'violet'  => 'Violet',
-                            'la'      => 'LA',
+                            'scarlet' => t('dex_version_scarlet'),
+                            'violet'  => t('dex_version_violet'),
+                            'la'      => t('dex_version_la'),
                             default   => htmlspecialchars($row['version']),
                         };
                         $vClass = match($row['version']) {
@@ -229,7 +232,7 @@ foreach ($entries as $row) {
                     ?>
                     <span class="version-badge <?= $vClass ?>"><?= $vLabel ?></span>
                 <?php endif; ?>
-                <strong class="d-block mb-1" style="font-size:.88rem"><?= htmlspecialchars($row['name_fr']) ?></strong>
+                <strong class="d-block mb-1" style="font-size:.88rem"><?= htmlspecialchars($row[$nameKey] ?: $row['name_fr']) ?></strong>
                 <?php if (!empty($row['form_code']) && $row['form_code'] !== 'base'): ?>
                     <div class="form-badge"><?= htmlspecialchars($row['form_code']) ?></div>
                 <?php endif; ?>
@@ -248,7 +251,7 @@ foreach ($entries as $row) {
                                    id="chk-normal-<?= $safeId ?>"
                                    onchange="saveCaught(this,'<?= $safeId ?>','<?= $pokedexID ?>','caught')"
                                    <?= $fp['caught'] ? 'checked' : '' ?>>
-                            <span class="lbl-normal">Normal</span>
+                            <span class="lbl-normal"><?= t('dex_label_normal') ?></span>
                         </div>
                     </div>
 
@@ -259,7 +262,7 @@ foreach ($entries as $row) {
                                 <img src="<?= htmlspecialchars($row['shiny_sprite']) ?>"
                                      class="poke-img shiny-sprite" alt="<?= $altName ?> shiny">
                             <?php else: ?>
-                                <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0;cursor:pointer">sprite shiny<br>non disponible</div>
+                                <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0;cursor:pointer"><?= t('dex_shiny_unavailable_line1') ?><br><?= t('dex_shiny_unavailable_line2') ?></div>
                             <?php endif; ?>
                         </label>
                         <div class="check-col">
@@ -267,7 +270,7 @@ foreach ($entries as $row) {
                                    id="chk-shiny-<?= $safeId ?>"
                                    onchange="saveCaught(this,'<?= $safeId ?>','<?= $pokedexID ?>','shiny')"
                                    <?= $fp['shiny'] ? 'checked' : '' ?>>
-                            <span class="lbl-shiny">✨ Shiny</span>
+                            <span class="lbl-shiny"><?= t('dex_label_shiny') ?></span>
                         </div>
                     </div>
                 </div>
@@ -277,11 +280,11 @@ foreach ($entries as $row) {
                            id="chk-alpha-<?= $safeId ?>"
                            onchange="saveCaught(this,'<?= $safeId ?>','<?= $pokedexID ?>','alpha')"
                            <?= $fp['alpha'] ? 'checked' : '' ?>>
-                    <span class="lbl-alpha">⬆ Alpha
+                    <span class="lbl-alpha"><?= t('dex_label_alpha') ?>
                         <span class="alpha-help"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
-                              title="« Alpha » est le terme générique. Inclut aussi les Pokémon Baron (Légendes Arceus) et les Pokémon puissants de taille XXL dans EV.">?</span>
+                              title="<?= htmlspecialchars(t('dex_alpha_tooltip')) ?>">?</span>
                     </span>
                 </div>
                 <?php endif; ?>
@@ -292,7 +295,7 @@ foreach ($entries as $row) {
 </div>
 
 <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
-    title="Remonter en haut"
+    title="<?= t('dex_scroll_top') ?>"
     style="display:none;position:fixed;bottom:24px;right:24px;z-index:9999;
            width:44px;height:44px;border-radius:50%;border:none;
            background:#cc0000;color:white;font-size:1.1rem;
@@ -300,6 +303,11 @@ foreach ($entries as $row) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+const _i18n = {
+    sessionExpired: <?= json_encode(t('dex_session_expired')) ?>,
+    saveError:      <?= json_encode(t('dex_save_error')) ?>,
+};
+
 // formPid = ID de la forme (ex: "154_m" ou "26_alolan") → envoyé à la BDD et utilisé pour les IDs HTML
 function saveCaught(checkbox, formPid, pokedexID, type) {
     const val = checkbox.checked ? 1 : 0;
@@ -320,11 +328,11 @@ function saveCaught(checkbox, formPid, pokedexID, type) {
     .then(data => {
         if (!data.ok) {
             if (data.error === 'SESSION_EXPIRED') {
-                alert("Votre session a expiré. Vous allez être redirigé vers la page de connexion.");
+                alert(_i18n.sessionExpired);
                 window.location.href = 'users/login.php';
             } else {
                 console.error("Erreur sauvegarde :", data.error);
-                alert("Erreur lors de la sauvegarde :\n" + data.error);
+                alert(_i18n.saveError + "\n" + data.error);
                 checkbox.checked = !checkbox.checked;
                 updateCardStyle(formPid);
                 recalcCounters();
@@ -386,6 +394,7 @@ window.addEventListener('scroll', () => {
         fr:   card.dataset.nameFr  || '',
         en:   card.dataset.nameEn  || '',
         de:   card.dataset.nameDe  || '',
+        es:   card.dataset.nameEs  || '',
     }));
 
     let rafId = null;
@@ -428,8 +437,8 @@ window.addEventListener('scroll', () => {
         matches = [];
 
         const term = q.toLowerCase();
-        entries.forEach(({ card, fr, en, de }) => {
-            const match = !term || fr.includes(term) || en.includes(term) || de.includes(term);
+        entries.forEach(({ card, fr, en, de, es }) => {
+            const match = !term || fr.includes(term) || en.includes(term) || de.includes(term) || es.includes(term);
             card.style.opacity       = match ? '' : '0.2';
             card.style.pointerEvents = match ? '' : 'none';
             card.style.outline       = '';

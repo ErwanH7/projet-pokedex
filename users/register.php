@@ -1,6 +1,11 @@
 <?php
 include_once '../include.php';
 
+// Adapter la langue de la page selon la sélection du formulaire
+if (isset($_POST['preferred_language']) && in_array($_POST['preferred_language'], ['fr', 'en', 'de', 'es'])) {
+    $appLang = $_POST['preferred_language'];
+}
+
 // Si déjà connecté, rediriger vers l'accueil
 if (isset($_SESSION['user_id'])) {
     header('Location: ../index.php');
@@ -54,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['email'] ?? '');
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
-    $lang     = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de']) ? $_POST['preferred_language'] : 'fr';
+    $lang     = in_array($_POST['preferred_language'] ?? 'fr', ['fr','en','de','es']) ? $_POST['preferred_language'] : 'fr';
 
     if ($email === '' || $password === '') {
         $errors[] = "Email et mot de passe requis.";
@@ -76,10 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare("INSERT INTO users (email, username, preferred_language, password_hash) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$email, $username ?: null, $lang, $hash]);
 
-                $_SESSION['user_id'] = $pdo->lastInsertId();
-                $_SESSION['email']   = $email;
-                $_SESSION['username'] = $username;
-                $_SESSION['role']    = 'user';
+                $_SESSION['user_id']            = $pdo->lastInsertId();
+                $_SESSION['email']              = $email;
+                $_SESSION['username']           = $username;
+                $_SESSION['role']               = 'user';
+                $_SESSION['preferred_language'] = $lang;
 
                 header('Location: ../index.php');
                 exit;
@@ -96,11 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= $appLang ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inscription - Mon Pokédex</title>
+    <title><?= t('register_title') ?> - Mon Pokédex</title>
     <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
@@ -121,13 +127,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-4">
         <a class="navbar-brand" href="../index.php"><img src="../img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="<?= t('nav_menu_label') ?>">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto gap-1">
-                <li class="nav-item"><a class="nav-link" href="login.php">Connexion</a></li>
-                <li class="nav-item"><a class="nav-link active" href="register.php">Inscription</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.php"><?= t('nav_login') ?></a></li>
+                <li class="nav-item"><a class="nav-link active" href="register.php"><?= t('nav_register') ?></a></li>
             </ul>
         </div>
     </div>
@@ -137,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card auth-card">
         <div class="auth-header">
             <div class="auth-icon">★</div>
-            <h2>Créer un compte</h2>
+            <h2><?= t('register_title') ?></h2>
         </div>
         <div class="card-body p-4">
             <?php if (!empty($errors)): ?>
@@ -151,46 +157,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="post">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
                 <div class="mb-3">
-                    <label for="email" class="form-label fw-semibold">Adresse email <span class="text-danger">*</span></label>
+                    <label for="email" class="form-label fw-semibold"><?= t('register_email_label') ?> <span class="text-danger">*</span></label>
                     <input type="email" class="form-control" id="email" name="email"
                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-                           placeholder="exemple@email.com" required autofocus>
+                           placeholder="<?= t('login_email_placeholder') ?>" required autofocus>
                 </div>
                 <div class="mb-3">
-                    <label for="username" class="form-label fw-semibold">Pseudo <span class="text-muted fw-normal">(optionnel)</span></label>
+                    <label for="username" class="form-label fw-semibold"><?= t('register_username_label') ?> <span class="text-muted fw-normal"><?= t('register_username_optional') ?></span></label>
                     <input type="text" class="form-control" id="username" name="username"
                            value="<?= htmlspecialchars($_POST['username'] ?? '') ?>"
-                           placeholder="Votre pseudo"
+                           placeholder="<?= t('register_username_label') ?>"
                            maxlength="20">
-                    <div class="form-text">Lettres, chiffres, tirets et underscores uniquement. Pas d'espaces.</div>
+                    <div class="form-text"><?= t('register_username_hint') ?></div>
                 </div>
                 <div class="mb-3">
-                    <label for="preferred_language" class="form-label fw-semibold">Langue préférée</label>
-                    <select class="form-select" id="preferred_language" name="preferred_language">
+                    <label for="preferred_language" class="form-label fw-semibold"><?= t('register_lang_label') ?></label>
+                    <select class="form-select" id="preferred_language" name="preferred_language" onchange="this.form.submit()">
                         <option value="fr" <?= ($_POST['preferred_language'] ?? 'fr') === 'fr' ? 'selected' : '' ?>>Français</option>
                         <option value="en" <?= ($_POST['preferred_language'] ?? '') === 'en' ? 'selected' : '' ?>>English</option>
                         <option value="de" <?= ($_POST['preferred_language'] ?? '') === 'de' ? 'selected' : '' ?>>Deutsch</option>
+                        <option value="es" <?= ($_POST['preferred_language'] ?? '') === 'es' ? 'selected' : '' ?>>Español</option>
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label for="password" class="form-label fw-semibold">Mot de passe <span class="text-danger">*</span></label>
+                    <label for="password" class="form-label fw-semibold"><?= t('register_password_label') ?> <span class="text-danger">*</span></label>
                     <input type="password" class="form-control" id="password" name="password"
-                           placeholder="8 car. min, 1 maj, 1 min, 1 chiffre, 1 spécial" required>
-                    <div class="form-text">8 caractères minimum · 1 majuscule · 1 minuscule · 1 chiffre · 1 caractère spécial (@, !, #, $…)</div>
+                           placeholder="<?= t('register_password_hint') ?>" required>
+                    <div class="form-text"><?= t('register_password_hint_long') ?></div>
                 </div>
                 <button type="submit" class="btn btn-danger w-100 py-2 fw-semibold">
-                    Créer mon compte
+                    <?= t('register_submit_btn') ?>
                 </button>
             </form>
 
             <hr class="my-4">
             <p class="text-center mb-1">
-                Déjà un compte ?
-                <a href="login.php" class="text-danger fw-semibold">Se connecter</a>
+                <?= t('register_already_account') ?>
+                <a href="login.php" class="text-danger fw-semibold"><?= t('register_login_link') ?></a>
             </p>
             <p class="text-center mb-0" style="font-size:.8rem">
-                En créant un compte, vous acceptez notre
-                <a href="../index.php#rgpdModal" data-bs-toggle="modal" data-bs-target="#rgpdModalReg" class="text-muted">politique de confidentialité (RGPD)</a>.
+                <?= t('register_privacy_text') ?>
+                <a href="../index.php#rgpdModal" data-bs-toggle="modal" data-bs-target="#rgpdModalReg" class="text-muted"><?= t('register_privacy_link') ?></a>.
             </p>
         </div>
     </div>
@@ -201,17 +208,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold">Politique de confidentialité — RGPD</h5>
+        <h5 class="modal-title fw-bold"><?= t('rgpd_title') ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <p>Nous collectons votre email, pseudo (optionnel) et mot de passe (chiffré) pour faire fonctionner le service.
-        Ces données ne sont ni revendues ni partagées. Vous pouvez demander leur suppression à tout moment via le support.</p>
-        <p>Un cookie de session (HttpOnly, SameSite=Strict) est utilisé pour maintenir votre connexion. Aucun cookie publicitaire n'est déposé.</p>
-        <p>Pour exercer vos droits RGPD (accès, rectification, suppression, portabilité), contactez-nous via le widget de support sur le site.</p>
+        <p><?= t('rgpd_short_text1') ?></p>
+        <p><?= t('rgpd_short_text2') ?></p>
+        <p><?= t('rgpd_short_text3') ?></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= t('footer_close') ?></button>
       </div>
     </div>
   </div>

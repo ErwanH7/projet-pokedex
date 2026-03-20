@@ -10,6 +10,9 @@ $stmt = $pdo->prepare("
         pl.id,
         pl.code,
         pl.name,
+        pl.name_en,
+        pl.name_de,
+        pl.name_es,
         COUNT(DISTINCT p.id)                                   AS total_species,
         COUNT(DISTINCT CASE WHEN up.caught = 1 THEN p.id END)  AS caught_normal,
         COUNT(DISTINCT CASE WHEN up.shiny  = 1 THEN p.id END)  AS caught_shiny,
@@ -28,7 +31,7 @@ $stmt->execute([$userID]);
 $rows = $stmt->fetchAll();
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= $appLang ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -184,12 +187,12 @@ $rows = $stmt->fetchAll();
     </button>
     <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav ms-auto gap-1">
-        <li class="nav-item"><a class="nav-link active" href="/stats.php">Statistiques</a></li>
-        <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/stats.php"><?= t('nav_stats') ?></a></li>
+        <li class="nav-item"><a class="nav-link" href="/users/profile.php"><?= t('nav_profile') ?></a></li>
         <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-          <li class="nav-item"><a class="nav-link" href="admin/admin_import.php">Administration</a></li>
+          <li class="nav-item"><a class="nav-link" href="admin/admin_import.php"><?= t('nav_admin') ?></a></li>
         <?php endif; ?>
-        <li class="nav-item"><a class="nav-link" href="users/logout.php">Déconnexion</a></li>
+        <li class="nav-item"><a class="nav-link" href="users/logout.php"><?= t('nav_logout') ?></a></li>
       </ul>
     </div>
   </div>
@@ -197,15 +200,15 @@ $rows = $stmt->fetchAll();
 
 <div class="stats-hero">
     <div class="container px-4">
-        <h1>Mes statistiques</h1>
-        <p>Progression globale sur tous vos Pokédex</p>
+        <h1><?= t('stats_title') ?></h1>
+        <p><?= t('stats_subtitle') ?></p>
     </div>
 </div>
 
 <div class="container px-4 pb-5">
 
 <?php if (empty($rows)): ?>
-    <p class="text-muted text-center">Aucun Pokédex disponible.</p>
+    <p class="text-muted text-center"><?= t('stats_no_dex') ?></p>
 <?php else:
     // ── Calcul du résumé global ───────────────────────────────────────────
     $totalDex       = count($rows);
@@ -222,19 +225,19 @@ $rows = $stmt->fetchAll();
 <div class="global-summary">
     <div class="summary-box">
         <div class="summary-val" style="color:var(--pk-red)"><?= $totalDex ?></div>
-        <div class="summary-lbl">Pokédex</div>
+        <div class="summary-lbl"><?= t('stats_pokedex_label') ?></div>
     </div>
     <div class="summary-box">
         <div class="summary-val c-normal"><?= $completedNormal ?></div>
-        <div class="summary-lbl">Complétés (Normal)</div>
+        <div class="summary-lbl"><?= t('stats_completed_normal') ?></div>
     </div>
     <div class="summary-box">
         <div class="summary-val c-shiny"><?= $completedShiny ?></div>
-        <div class="summary-lbl">Complétés (Shiny)</div>
+        <div class="summary-lbl"><?= t('stats_completed_shiny') ?></div>
     </div>
     <div class="summary-box">
         <div class="summary-val medal-gold"><?= $completedNormal > 0 && $completedShiny > 0 ? '🥇' : ($completedNormal > 0 ? '🥉' : ($completedShiny > 0 ? '🥈' : '—')) ?></div>
-        <div class="summary-lbl">Meilleure médaille</div>
+        <div class="summary-lbl"><?= t('stats_best_medal') ?></div>
     </div>
 </div>
 
@@ -259,11 +262,11 @@ $rows = $stmt->fetchAll();
     <div class="dex-card">
         <div class="dex-card-header">
             <a href="pokedex.php?dex=<?= urlencode($row['code']) ?>" class="dex-card-title">
-                <?= htmlspecialchars($row['name']) ?>
+                <?= htmlspecialchars(dex_name($row)) ?>
             </a>
             <div class="medal-row">
                 <?php if ($goldMedal): ?>
-                    <span class="medal-gold" title="Pokédex complété Normal + Shiny !">🥇</span>
+                    <span class="medal-gold" title="<?= htmlspecialchars(t('stats_gold_medal_tooltip')) ?>">🥇</span>
                 <?php endif; ?>
             </div>
         </div>

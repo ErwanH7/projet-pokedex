@@ -4,12 +4,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 if ($isLoggedIn) {
     $pdo = DB::getPDO();
-    $stmt = $pdo->query("SELECT code, name FROM pokedex_list ORDER BY id ASC");
+    $stmt = $pdo->query("SELECT code, name, name_en, name_de, name_es FROM pokedex_list ORDER BY id ASC");
     $pokedexList = $stmt->fetchAll();
 }
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= $appLang ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,21 +59,21 @@ if ($isLoggedIn) {
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid px-4">
     <a class="navbar-brand" href="index.php"><img src="img/logo_pokedex.png" alt="Mon Pokédex" style="height:72px;"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="<?= t('nav_menu_label') ?>">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav ms-auto gap-1">
         <?php if ($isLoggedIn): ?>
-          <li class="nav-item"><a class="nav-link" href="/stats.php">Statistiques</a></li>
-          <li class="nav-item"><a class="nav-link" href="/users/profile.php">Profil</a></li>
+          <li class="nav-item"><a class="nav-link" href="/stats.php"><?= t('nav_stats') ?></a></li>
+          <li class="nav-item"><a class="nav-link" href="/users/profile.php"><?= t('nav_profile') ?></a></li>
           <?php if ($_SESSION['role'] === 'admin'): ?>
-            <li class="nav-item"><a class="nav-link" href="admin/admin_import.php">Administration</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin/admin_import.php"><?= t('nav_admin') ?></a></li>
           <?php endif; ?>
-          <li class="nav-item"><a class="nav-link" href="users/logout.php">Déconnexion</a></li>
+          <li class="nav-item"><a class="nav-link" href="users/logout.php"><?= t('nav_logout') ?></a></li>
         <?php else: ?>
-          <li class="nav-item"><a class="nav-link" href="users/login.php">Connexion</a></li>
-          <li class="nav-item"><a class="nav-link active" href="users/register.php">Inscription</a></li>
+          <li class="nav-item"><a class="nav-link" href="users/login.php"><?= t('nav_login') ?></a></li>
+          <li class="nav-item"><a class="nav-link active" href="users/register.php"><?= t('nav_register') ?></a></li>
         <?php endif; ?>
       </ul>
     </div>
@@ -180,25 +180,25 @@ if ($isLoggedIn) {
 <!-- ══ PAGE POKÉDEX (utilisateurs connectés) ════════════════════════════════ -->
 <div class="container px-4">
     <div class="dex-hero">
-        <h2>Choisissez un Pokédex</h2>
-        <p>Suivez votre progression sur tous vos jeux Pokémon</p>
+        <h2><?= t('home_choose_dex') ?></h2>
+        <p><?= t('home_subtitle') ?></p>
         <div class="search-wrap mx-auto mt-3" style="max-width:500px">
             <input type="search" id="globalSearch" class="form-control form-control-lg"
-                   placeholder="Chercher un Pokédex ou un Pokémon…"
-                   autocomplete="off" aria-label="Recherche globale">
+                   placeholder="<?= t('home_search_placeholder') ?>"
+                   autocomplete="off" aria-label="<?= t('home_search_placeholder') ?>">
             <div id="searchDropdown" class="search-dropdown" role="listbox" hidden></div>
         </div>
     </div>
 
     <?php if (empty($pokedexList)): ?>
-        <p class="text-center text-muted">Aucun Pokédex disponible.</p>
+        <p class="text-center text-muted"><?= t('home_no_dex') ?></p>
     <?php else: ?>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-5">
         <?php foreach ($pokedexList as $dex): ?>
         <div class="col">
             <a href="pokedex.php?dex=<?= urlencode($dex['code']) ?>" class="dex-card h-100">
-                <div class="dex-card-name"><?= htmlspecialchars($dex['name']) ?></div>
-                <div class="dex-card-cta">Voir le Pokédex →</div>
+                <div class="dex-card-name"><?= htmlspecialchars(dex_name($dex)) ?></div>
+                <div class="dex-card-cta"><?= t('home_view_dex') ?></div>
             </a>
         </div>
         <?php endforeach; ?>
@@ -211,6 +211,13 @@ if ($isLoggedIn) {
     const input    = document.getElementById('globalSearch');
     const dropdown = document.getElementById('searchDropdown');
     let timer = null, controller = null;
+    const appLang = <?= json_encode($appLang) ?>;
+    const i18n = {
+        sectionPokedex: <?= json_encode(t('search_section_pokedex')) ?>,
+        sectionPokemon: <?= json_encode(t('search_section_pokemon')) ?>,
+        noResult:       <?= json_encode(t('search_no_result')) ?>,
+        noDex:          <?= json_encode(t('search_no_dex_tag')) ?>,
+    };
 
     input.addEventListener('input', () => {
         clearTimeout(timer);
@@ -245,29 +252,31 @@ if ($isLoggedIn) {
         const hasDex = data.pokedexes?.length > 0;
         const hasPok = data.pokemon?.length > 0;
         if (!hasDex && !hasPok) {
-            dropdown.innerHTML = '<div class="search-empty">Aucun résultat pour « ' + esc(q) + ' »</div>';
+            dropdown.innerHTML = '<div class="search-empty">' + i18n.noResult + ' « ' + esc(q) + ' »</div>';
             openDropdown(); return;
         }
         let html = '';
         if (hasDex) {
-            html += '<div class="search-section-label">Pokédex</div>';
+            html += '<div class="search-section-label">' + i18n.sectionPokedex + '</div>';
             for (const d of data.pokedexes) {
+                const dexName = d['name_' + appLang] || d.name;
                 html += `<a href="/pokedex.php?dex=${enc(d.code)}" class="search-item">
                     <span class="search-item-icon">📖</span>
-                    <span class="search-item-text" style="font-weight:700">${hl(esc(d.name), q)}</span>
+                    <span class="search-item-text" style="font-weight:700">${hl(esc(dexName), q)}</span>
                 </a>`;
             }
         }
         if (hasPok) {
-            html += '<div class="search-section-label">Pokémon</div>';
+            html += '<div class="search-section-label">' + i18n.sectionPokemon + '</div>';
             for (const p of data.pokemon) {
-                const name = p.name_fr || p.name_en || '#' + p.species_id;
+                const name = p['name_' + appLang] || p.name_fr || p.name_en || '#' + p.species_id;
                 const sprite = p.sprite
                     ? `<img src="${esc(p.sprite)}" class="search-sprite" alt="" loading="lazy">`
                     : `<span class="search-sprite-placeholder"></span>`;
-                const tags = (p.dexes || []).map(d =>
-                    `<a href="/pokedex.php?dex=${enc(d.code)}#card-${p.species_id}" class="search-dex-tag">${esc(d.name)}</a>`
-                ).join('') || '<span style="font-size:.72rem;color:#94a3b8">Aucun pokédex</span>';
+                const tags = (p.dexes || []).map(d => {
+                    const tagName = d['name_' + appLang] || d.name;
+                    return `<a href="/pokedex.php?dex=${enc(d.code)}#card-${p.species_id}" class="search-dex-tag">${esc(tagName)}</a>`;
+                }).join('') || `<span style="font-size:.72rem;color:#94a3b8">${i18n.noDex}</span>`;
                 html += `<div class="search-item search-item-poke" tabindex="-1">
                     ${sprite}
                     <div class="search-item-body">
@@ -312,7 +321,7 @@ if ($isLoggedIn) {
     <div class="container text-center">
         <span>Mon Pokédex &copy; <?= date('Y') ?> &mdash;
         <button class="btn btn-link btn-sm p-0 footer-link" data-bs-toggle="modal" data-bs-target="#rgpdModal">
-            Politique de confidentialité (RGPD)
+            <?= t('footer_privacy') ?>
         </button>
         </span>
     </div>
@@ -323,44 +332,44 @@ if ($isLoggedIn) {
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="rgpdModalLabel">Politique de confidentialité — RGPD</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        <h5 class="modal-title fw-bold" id="rgpdModalLabel"><?= t('rgpd_title') ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?= t('footer_close') ?>"></button>
       </div>
       <div class="modal-body">
-        <h6 class="fw-bold">1. Responsable du traitement</h6>
-        <p>Le site Mon Pokédex est un projet personnel à vocation non commerciale. Pour toute question relative à vos données, vous pouvez nous contacter via le widget de support disponible sur le site.</p>
+        <h6 class="fw-bold"><?= t('rgpd_1_title') ?></h6>
+        <p><?= t('rgpd_1_text') ?></p>
 
-        <h6 class="fw-bold">2. Données collectées</h6>
-        <p>Lors de votre inscription, nous collectons les informations suivantes :</p>
+        <h6 class="fw-bold"><?= t('rgpd_2_title') ?></h6>
+        <p><?= t('rgpd_2_intro') ?></p>
         <ul>
-            <li><strong>Adresse email</strong> — utilisée comme identifiant de connexion</li>
-            <li><strong>Pseudo</strong> — optionnel, affiché sur votre profil</li>
-            <li><strong>Mot de passe</strong> — stocké sous forme chiffrée (bcrypt), jamais en clair</li>
-            <li><strong>Langue préférée</strong> — pour l'affichage des noms de Pokémon</li>
-            <li><strong>Progression Pokédex</strong> — Pokémon marqués comme capturés ou shiny</li>
+            <li><?= t('rgpd_2_email') ?></li>
+            <li><?= t('rgpd_2_username') ?></li>
+            <li><?= t('rgpd_2_password') ?></li>
+            <li><?= t('rgpd_2_lang') ?></li>
+            <li><?= t('rgpd_2_progress') ?></li>
         </ul>
 
-        <h6 class="fw-bold">3. Finalité du traitement</h6>
-        <p>Ces données sont utilisées uniquement pour faire fonctionner le service : authentification, sauvegarde de votre progression et personnalisation de l'affichage. Elles ne sont ni revendues, ni partagées avec des tiers.</p>
+        <h6 class="fw-bold"><?= t('rgpd_3_title') ?></h6>
+        <p><?= t('rgpd_3_text') ?></p>
 
-        <h6 class="fw-bold">4. Durée de conservation</h6>
-        <p>Vos données sont conservées tant que votre compte est actif. Vous pouvez demander la suppression de votre compte à tout moment via le support.</p>
+        <h6 class="fw-bold"><?= t('rgpd_4_title') ?></h6>
+        <p><?= t('rgpd_4_text') ?></p>
 
-        <h6 class="fw-bold">5. Vos droits (RGPD)</h6>
-        <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :</p>
+        <h6 class="fw-bold"><?= t('rgpd_5_title') ?></h6>
+        <p><?= t('rgpd_5_intro') ?></p>
         <ul>
-            <li>Droit d'accès à vos données</li>
-            <li>Droit de rectification</li>
-            <li>Droit à l'effacement (« droit à l'oubli »)</li>
-            <li>Droit à la portabilité de vos données</li>
+            <li><?= t('rgpd_5_access') ?></li>
+            <li><?= t('rgpd_5_rectification') ?></li>
+            <li><?= t('rgpd_5_erasure') ?></li>
+            <li><?= t('rgpd_5_portability') ?></li>
         </ul>
-        <p>Pour exercer ces droits, contactez-nous via le widget de support.</p>
+        <p><?= t('rgpd_5_outro') ?></p>
 
-        <h6 class="fw-bold">6. Cookies</h6>
-        <p>Ce site utilise uniquement un cookie de session (HttpOnly, SameSite=Strict) pour maintenir votre connexion. Aucun cookie publicitaire ou de traçage n'est utilisé.</p>
+        <h6 class="fw-bold"><?= t('rgpd_6_title') ?></h6>
+        <p><?= t('rgpd_6_text') ?></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= t('footer_close') ?></button>
       </div>
     </div>
   </div>

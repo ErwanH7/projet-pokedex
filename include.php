@@ -69,6 +69,24 @@ require_once 'config/constantesPDO.php';
  */
 require_once 'users/auth_required.php';
 
+// ── Langue de l'application ───────────────────────────────────────────────────
+$appLang = $_SESSION['preferred_language'] ?? 'fr';
+require_once __DIR__ . '/lang/translations.php';
+
+/**
+ * Retourne le nom d'un Pokédex dans la langue de l'utilisateur.
+ * Attend un tableau avec au moins 'name' (fr), optionnellement 'name_en', 'name_de'.
+ */
+function dex_name(array $dex): string
+{
+    global $appLang;
+    if ($appLang !== 'fr') {
+        $col = "name_{$appLang}";
+        if (!empty($dex[$col])) return $dex[$col];
+    }
+    return $dex['name'] ?? '';
+}
+
 // ── URL de base (utilisée pour les meta og:image) ────────────────────────────
 $_proto  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $baseUrl = $_proto . '://' . $_SERVER['HTTP_HOST'];

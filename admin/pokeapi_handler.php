@@ -112,8 +112,8 @@ try {
 function prepare_stmts(PDO $pdo): array {
     return [
         'pokemon' => $pdo->prepare("
-            INSERT INTO pokemon (id, name_fr, name_en, name_de, sprite, shiny_sprite)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO pokemon (id, name_fr, name_en, name_de, name_es, sprite, shiny_sprite)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE id = id
         "),
         'form' => $pdo->prepare("
@@ -135,9 +135,12 @@ function prepare_stmts(PDO $pdo): array {
 }
 
 // ---------- PARAMS ----------
-$slug         = trim($_POST['pokedex_slug']   ?? '');
-$code         = strtoupper(trim($_POST['pokedex_code']  ?? ''));
-$name         = trim($_POST['pokedex_name']   ?? '');
+$slug         = trim($_POST['pokedex_slug']    ?? '');
+$code         = strtoupper(trim($_POST['pokedex_code']   ?? ''));
+$name         = trim($_POST['pokedex_name']    ?? '');
+$name_en      = trim($_POST['pokedex_name_en'] ?? '') ?: null;
+$name_de      = trim($_POST['pokedex_name_de'] ?? '') ?: null;
+$name_es      = trim($_POST['pokedex_name_es'] ?? '') ?: null;
 $importData   = isset($_POST['import_pokemon_data']);
 
 if (!$slug || !$code || !$name) { out("❌ Paramètres manquants."); exit; }
@@ -238,11 +241,11 @@ if ($slug === 'mega-evolutions') {
     $stmt->execute([$code]);
     $pokedexID = $stmt->fetchColumn();
     if (!$pokedexID) {
-        $pdo->prepare("INSERT INTO pokedex_list (code, name) VALUES (?, ?)")->execute([$code, $name]);
+        $pdo->prepare("INSERT INTO pokedex_list (code, name, name_en, name_de, name_es) VALUES (?, ?, ?, ?, ?)")->execute([$code, $name, $name_en, $name_de, $name_es]);
         $pokedexID = $pdo->lastInsertId();
         out("✔ Pokédex « {$code} » créé (id={$pokedexID}).");
     } else {
-        $pdo->prepare("UPDATE pokedex_list SET name = ? WHERE id = ?")->execute([$name, $pokedexID]);
+        $pdo->prepare("UPDATE pokedex_list SET name = ?, name_en = ?, name_de = ?, name_es = ? WHERE id = ?")->execute([$name, $name_en, $name_de, $name_es, $pokedexID]);
         out("✔ Pokédex « {$code} » existant mis à jour.");
     }
 
@@ -260,7 +263,7 @@ if ($slug === 'mega-evolutions') {
             ['pokemon' => $insertPokemon, 'form' => $insertForm, 'entry' => $insertEntry, 'formVariant' => $insertFormVariant] = prepare_stmts($pdo);
         }
 
-        $name_fr = $name_en = $name_de = null;
+        $name_fr = $name_en = $name_de = $name_es = null;
         $baseSprite = $baseShiny = null;
 
         if ($importData) {
@@ -270,6 +273,7 @@ if ($slug === 'mega-evolutions') {
                     if ($n['language']['name'] === 'fr') $name_fr = $n['name'];
                     if ($n['language']['name'] === 'en') $name_en = $n['name'];
                     if ($n['language']['name'] === 'de') $name_de = $n['name'];
+                    if ($n['language']['name'] === 'es') $name_es = $n['name'];
                 }
             }
             $pokData = pokeapi_get("https://pokeapi.co/api/v2/pokemon/{$natId}/");
@@ -280,7 +284,7 @@ if ($slug === 'mega-evolutions') {
         }
 
         $displayName = $name_en ?? $speciesSlug;
-        $insertPokemon->execute([$natId, $name_fr, $name_en ?? $speciesSlug, $name_de, $baseSprite, $baseShiny]);
+        $insertPokemon->execute([$natId, $name_fr, $name_en ?? $speciesSlug, $name_de, $name_es, $baseSprite, $baseShiny]);
         $insertForm->execute([(string)$natId, $natId, $baseSprite, $baseShiny]);
 
         // Importer chaque forme méga et l'ajouter au pokédex
@@ -664,11 +668,11 @@ if ($slug === 'formes-alternatives') {
     $stmt->execute([$code]);
     $pokedexID = $stmt->fetchColumn();
     if (!$pokedexID) {
-        $pdo->prepare("INSERT INTO pokedex_list (code, name) VALUES (?, ?)")->execute([$code, $name]);
+        $pdo->prepare("INSERT INTO pokedex_list (code, name, name_en, name_de, name_es) VALUES (?, ?, ?, ?, ?)")->execute([$code, $name, $name_en, $name_de, $name_es]);
         $pokedexID = $pdo->lastInsertId();
         out("✔ Pokédex « {$code} » créé (id={$pokedexID}).");
     } else {
-        $pdo->prepare("UPDATE pokedex_list SET name = ? WHERE id = ?")->execute([$name, $pokedexID]);
+        $pdo->prepare("UPDATE pokedex_list SET name = ?, name_en = ?, name_de = ?, name_es = ? WHERE id = ?")->execute([$name, $name_en, $name_de, $name_es, $pokedexID]);
         out("✔ Pokédex « {$code} » existant mis à jour.");
     }
 
@@ -687,7 +691,7 @@ if ($slug === 'formes-alternatives') {
             ['pokemon' => $insertPokemon, 'form' => $insertForm, 'entry' => $insertEntry, 'formVariant' => $insertFormVariant] = prepare_stmts($pdo);
         }
 
-        $name_fr = $name_en = $name_de = $baseSprite = $baseShiny = null;
+        $name_fr = $name_en = $name_de = $name_es = $baseSprite = $baseShiny = null;
 
         if ($importData) {
             // Charger données espèce une seule fois par species_id
@@ -699,6 +703,7 @@ if ($slug === 'formes-alternatives') {
                         if ($n['language']['name'] === 'fr') $cached['fr'] = $n['name'];
                         if ($n['language']['name'] === 'en') $cached['en'] = $n['name'];
                         if ($n['language']['name'] === 'de') $cached['de'] = $n['name'];
+                        if ($n['language']['name'] === 'es') $cached['es'] = $n['name'];
                     }
                 }
                 $pk = pokeapi_get("https://pokeapi.co/api/v2/pokemon/{$natId}/");
@@ -714,6 +719,7 @@ if ($slug === 'formes-alternatives') {
             $name_fr    = $c['fr']     ?? null;
             $name_en    = $c['en']     ?? null;
             $name_de    = $c['de']     ?? null;
+            $name_es    = $c['es']     ?? null;
             $baseSprite = $c['sprite'] ?? null;
             $baseShiny  = $c['shiny']  ?? null;
         }
@@ -721,7 +727,7 @@ if ($slug === 'formes-alternatives') {
         $displayName = $name_en ?? $apiSlug;
 
         // Insérer l'espèce de base et sa forme de base
-        $insertPokemon->execute([$natId, $name_fr, $name_en ?? $apiSlug, $name_de, $baseSprite, $baseShiny]);
+        $insertPokemon->execute([$natId, $name_fr, $name_en ?? $apiSlug, $name_de, $name_es, $baseSprite, $baseShiny]);
         $insertForm->execute([(string)$natId, $natId, $baseSprite, $baseShiny]);
 
         // Récupérer le sprite de la forme alternative
@@ -811,11 +817,11 @@ $stmt = $pdo->prepare("SELECT id FROM pokedex_list WHERE code = ?");
 $stmt->execute([$code]);
 $pokedexID = $stmt->fetchColumn();
 if (!$pokedexID) {
-    $pdo->prepare("INSERT INTO pokedex_list (code, name) VALUES (?, ?)")->execute([$code, $name]);
+    $pdo->prepare("INSERT INTO pokedex_list (code, name, name_en, name_de, name_es) VALUES (?, ?, ?, ?, ?)")->execute([$code, $name, $name_en, $name_de, $name_es]);
     $pokedexID = $pdo->lastInsertId();
     out("✔ Pokédex « {$code} » créé (id={$pokedexID}).");
 } else {
-    $pdo->prepare("UPDATE pokedex_list SET name = ? WHERE id = ?")->execute([$name, $pokedexID]);
+    $pdo->prepare("UPDATE pokedex_list SET name = ?, name_en = ?, name_de = ?, name_es = ? WHERE id = ?")->execute([$name, $name_en, $name_de, $name_es, $pokedexID]);
     out("✔ Pokédex « {$code} » existant mis à jour.");
 }
 
@@ -852,6 +858,7 @@ foreach ($entries as $entry) {
     $name_fr = null;
     $name_en = $entry['pokemon_species']['name'];  // slug par défaut
     $name_de = null;
+    $name_es = null;
     $sprite  = null;
     $shiny   = null;
 
@@ -865,6 +872,7 @@ foreach ($entries as $entry) {
                 if ($lang === 'fr')   $name_fr = $nameEntry['name'];
                 if ($lang === 'en')   $name_en = $nameEntry['name'];
                 if ($lang === 'de')   $name_de = $nameEntry['name'];
+                if ($lang === 'es')   $name_es = $nameEntry['name'];
             }
         }
 
@@ -877,7 +885,7 @@ foreach ($entries as $entry) {
     }
 
     // Insert pokemon (base species)
-    $insertPokemon->execute([$nationalId, $name_fr, $name_en, $name_de, $sprite, $shiny]);
+    $insertPokemon->execute([$nationalId, $name_fr, $name_en, $name_de, $name_es, $sprite, $shiny]);
 
     // Insert forme de base
     $insertForm->execute([(string)$nationalId, $nationalId, $sprite, $shiny]);
