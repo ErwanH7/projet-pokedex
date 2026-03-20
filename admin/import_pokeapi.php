@@ -110,7 +110,15 @@
         <div class="card-header fw-semibold text-warning-emphasis bg-warning-subtle">Outils de maintenance</div>
         <div class="card-body">
             <p class="text-muted small mb-2">Répare les sprites manquants des formes Méga en interrogeant PokéAPI puis Bulbagarden Archives.</p>
-            <button class="btn btn-warning btn-sm" id="fixSpritesBtn">🔧 Corriger les sprites Méga manquants</button>
+            <button class="btn btn-warning btn-sm mb-3" id="fixSpritesBtn">🔧 Corriger les sprites Méga manquants</button>
+
+            <hr class="my-2">
+            <p class="text-muted small mb-2">Répare les sprites manquants d'un Pokédex de formes alternatives (Alola, Galar, Hisui, multi-formes, ♀…).</p>
+            <div class="input-group input-group-sm" style="max-width:320px">
+                <span class="input-group-text">Code pokédex</span>
+                <input type="text" class="form-control" id="fixFormesCode" value="FA" maxlength="20">
+                <button class="btn btn-warning" id="fixFormesBtn">🔧 Corriger sprites formes</button>
+            </div>
         </div>
     </div>
 
@@ -159,6 +167,38 @@ document.getElementById('importForm').addEventListener('submit', function(e) {
             log.textContent += '\n❌ Erreur réseau : ' + err.message;
             btn.disabled = false;
             btn.textContent = 'Lancer l\'import';
+        });
+});
+
+document.getElementById('fixFormesBtn').addEventListener('click', function() {
+    const code = document.getElementById('fixFormesCode').value.trim();
+    if (!code) return;
+    const btn  = this;
+    const card = document.getElementById('progressCard');
+    const log  = document.getElementById('progressLog');
+
+    btn.disabled = true;
+    btn.textContent = 'Correction en cours…';
+    card.classList.remove('d-none');
+    log.textContent = '';
+
+    fetch('fix_formes_sprites.php?code=' + encodeURIComponent(code))
+        .then(response => {
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            function read() {
+                reader.read().then(({ done, value }) => {
+                    if (done) { btn.disabled = false; btn.textContent = '🔧 Corriger sprites formes'; return; }
+                    log.textContent += decoder.decode(value);
+                    log.scrollTop = log.scrollHeight;
+                    read();
+                });
+            }
+            read();
+        })
+        .catch(err => {
+            log.textContent += '\n❌ Erreur : ' + err.message;
+            btn.disabled = false;
         });
 });
 
