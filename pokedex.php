@@ -43,29 +43,7 @@ $stmt = $pdo->prepare("
 $stmt->execute([$pokedexID]);
 $entries = $stmt->fetchAll();
 
-// Regrouper par espèce
-$species = [];
-foreach ($entries as $row) {
-    $sid = $row['species_id'];
-    if (!isset($species[$sid])) {
-        $species[$sid] = [
-            'name'     => $row['name_fr'] ?: $row['name_en'] ?: '#' . $sid,
-            'name_fr'  => $row['name_fr'] ?? '',
-            'name_en'  => $row['name_en'] ?? '',
-            'name_de'  => $row['name_de'] ?? '',
-            'position' => $row['position'],
-            'version'  => $row['version'],
-            'forms'    => [],
-        ];
-    }
-    $species[$sid]['forms'][$row['pokemon_id']] = [
-        'code'   => $row['form_code'],
-        'sprite' => $row['sprite'],
-        'shiny'  => $row['shiny_sprite'],
-    ];
-}
-
-// Progression : clé = pokemon_id (ID de forme, ex: "154" ou "154_m")
+// Progression : clé = pokemon_id (ID de forme, ex: "154" ou "6_mega_x")
 $stmt = $pdo->prepare("
     SELECT pokemon_id, caught, shiny, alpha FROM user_progress
     WHERE user_id = ? AND pokedex_id = ?
@@ -76,24 +54,16 @@ foreach ($stmt->fetchAll() as $r) {
     $progressData[$r['pokemon_id']] = ['caught' => (int)$r['caught'], 'shiny' => (int)$r['shiny'], 'alpha' => (int)$r['alpha']];
 }
 
-// Compteurs : 1 espèce = cochée si au moins 1 de ses formes est cochée
-$totalSpecies = count($species);
+// 1 carte = 1 forme → compteurs par forme
+$totalForms   = count($entries);
 $caughtNormal = 0;
 $caughtShiny  = 0;
 $caughtAlpha  = 0;
-foreach ($species as $sid => $data) {
-    $speciesNormal = false;
-    $speciesShiny  = false;
-    $speciesAlpha  = false;
-    foreach ($data['forms'] as $pid => $_) {
-        $fp = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
-        if ($fp['caught']) $speciesNormal = true;
-        if ($fp['shiny'])  $speciesShiny  = true;
-        if ($fp['alpha'])  $speciesAlpha  = true;
-    }
-    if ($speciesNormal) $caughtNormal++;
-    if ($speciesShiny)  $caughtShiny++;
-    if ($speciesAlpha)  $caughtAlpha++;
+foreach ($entries as $row) {
+    $fp = $progressData[$row['pokemon_id']] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
+    if ($fp['caught']) $caughtNormal++;
+    if ($fp['shiny'])  $caughtShiny++;
+    if ($fp['alpha'])  $caughtAlpha++;
 }
 ?>
 <!DOCTYPE html>
@@ -211,16 +181,16 @@ foreach ($species as $sid => $data) {
         <div class="d-flex gap-3 text-center flex-shrink-0 ms-1">
             <div class="count-block">
                 <div class="count-val text-success" id="count-normal"><?= $caughtNormal ?></div>
-                <div class="count-lbl">Normal / <?= $totalSpecies ?></div>
+                <div class="count-lbl">Normal / <?= $totalForms ?></div>
             </div>
             <div class="count-block">
                 <div class="count-val" style="color:var(--pk-purple)" id="count-shiny"><?= $caughtShiny ?></div>
-                <div class="count-lbl">Shiny / <?= $totalSpecies ?></div>
+                <div class="count-lbl">Shiny / <?= $totalForms ?></div>
             </div>
             <?php if ($showAlpha): ?>
             <div class="count-block">
                 <div class="count-val" style="color:#f97316" id="count-alpha"><?= $caughtAlpha ?></div>
-                <div class="count-lbl">Alpha / <?= $totalSpecies ?></div>
+                <div class="count-lbl">Alpha / <?= $totalForms ?></div>
             </div>
             <?php endif; ?>
         </div>
@@ -229,32 +199,29 @@ foreach ($species as $sid => $data) {
 
 <div class="container-fluid px-3 mt-3">
     <div class="row row-cols-3 g-1">
-    <?php foreach ($species as $speciesID => $data):
-        // Couleur de la carte = vérifie toutes les formes de l'espèce
-        $cardCaught = false;
-        $cardShiny  = false;
-        foreach ($data['forms'] as $pid => $_) {
-            $fp = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0];
-            if ($fp['caught']) $cardCaught = true;
-            if ($fp['shiny'])  $cardShiny  = true;
-        }
-        $cardClass = ($cardCaught && $cardShiny) ? 'both' : ($cardCaught ? 'normal' : ($cardShiny ? 'shiny' : ''));
+    <?php foreach ($entries as $row):
+        $pid       = $row['pokemon_id'];
+        $fp        = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
+        $cardClass = ($fp['caught'] && $fp['shiny']) ? 'both' : ($fp['caught'] ? 'normal' : ($fp['shiny'] ? 'shiny' : ''));
+        $safeId    = htmlspecialchars($pid);
+        $altName   = htmlspecialchars($row['name_fr']);
+        $noSprite  = '<div style="width:72px;height:72px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:1.2rem">?</div>';
     ?>
         <div class="col">
-            <div class="poke-card <?= $cardClass ?>" id="card-<?= $speciesID ?>"
-                 data-name-fr="<?= htmlspecialchars(mb_strtolower($data['name_fr'])) ?>"
-                 data-name-en="<?= htmlspecialchars(mb_strtolower($data['name_en'])) ?>"
-                 data-name-de="<?= htmlspecialchars(mb_strtolower($data['name_de'])) ?>">
-                <div class="poke-num"><?= $data['position'] ? '#' . str_pad((string)$data['position'], 3, '0', STR_PAD_LEFT) : '—' ?></div>
-                <?php if ($showVersion && $data['version']): ?>
+            <div class="poke-card <?= $cardClass ?>" id="card-<?= $safeId ?>"
+                 data-name-fr="<?= htmlspecialchars(mb_strtolower($row['name_fr'])) ?>"
+                 data-name-en="<?= htmlspecialchars(mb_strtolower($row['name_en'])) ?>"
+                 data-name-de="<?= htmlspecialchars(mb_strtolower($row['name_de'])) ?>">
+                <div class="poke-num"><?= $row['position'] ? '#' . str_pad((string)$row['position'], 3, '0', STR_PAD_LEFT) : '—' ?></div>
+                <?php if ($showVersion && $row['version']): ?>
                     <?php
-                        $vLabel = match($data['version']) {
+                        $vLabel = match($row['version']) {
                             'scarlet' => 'Écarlate',
                             'violet'  => 'Violet',
                             'la'      => 'LA',
-                            default   => htmlspecialchars($data['version']),
+                            default   => htmlspecialchars($row['version']),
                         };
-                        $vClass = match($data['version']) {
+                        $vClass = match($row['version']) {
                             'scarlet' => 'scarlet',
                             'violet'  => 'violet',
                             default   => 'scarlet',
@@ -262,76 +229,62 @@ foreach ($species as $sid => $data) {
                     ?>
                     <span class="version-badge <?= $vClass ?>"><?= $vLabel ?></span>
                 <?php endif; ?>
-                <strong class="d-block mb-1" style="font-size:.88rem"><?= htmlspecialchars($data['name']) ?></strong>
+                <strong class="d-block mb-1" style="font-size:.88rem"><?= htmlspecialchars($row['name_fr']) ?></strong>
+                <?php if (!empty($row['form_code']) && $row['form_code'] !== 'base'): ?>
+                    <div class="form-badge"><?= htmlspecialchars($row['form_code']) ?></div>
+                <?php endif; ?>
 
-                <?php foreach ($data['forms'] as $pid => $form):
-                    // Progression propre à cette forme
-                    $formProg   = $progressData[$pid] ?? ['caught' => 0, 'shiny' => 0, 'alpha' => 0];
-                    $formCaught = $formProg['caught'];
-                    $formShiny  = $formProg['shiny'];
-                    $formAlpha  = $formProg['alpha'];
-                    $safeId  = htmlspecialchars($pid);
-                    $altName = htmlspecialchars($data['name']);
-                    $noSprite = '<div style="width:72px;height:72px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:1.2rem">?</div>';
-                ?>
-                <div class="mb-2">
-                    <?php if (!empty($form['code']) && $form['code'] !== 'base'): ?>
-                        <div class="form-badge"><?= htmlspecialchars($form['code']) ?></div>
-                    <?php endif; ?>
-
-                    <div class="sprites-row">
-                        <!-- Sprite normal -->
-                        <div class="sprite-col">
-                            <label class="sprite-label" for="chk-normal-<?= $safeId ?>">
-                                <?php if ($form['sprite']): ?>
-                                    <img src="<?= htmlspecialchars($form['sprite']) ?>"
-                                         class="poke-img" alt="<?= $altName ?>">
-                                <?php else: ?><?= $noSprite ?><?php endif; ?>
-                            </label>
-                            <div class="check-col">
-                                <input type="checkbox"
-                                       id="chk-normal-<?= $safeId ?>"
-                                       onchange="saveCaught(this,'<?= $safeId ?>',<?= $speciesID ?>,'<?= $pokedexID ?>','caught')"
-                                       <?= $formCaught ? 'checked' : '' ?>>
-                                <span class="lbl-normal">Normal</span>
-                            </div>
-                        </div>
-
-                        <!-- Sprite shiny -->
-                        <div class="sprite-col">
-                            <label class="sprite-label" for="chk-shiny-<?= $safeId ?>">
-                                <?php if ($form['shiny']): ?>
-                                    <img src="<?= htmlspecialchars($form['shiny']) ?>"
-                                         class="poke-img shiny-sprite" alt="<?= $altName ?> shiny">
-                                <?php else: ?>
-                                    <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0;cursor:pointer">sprite shiny<br>non disponible</div>
-                                <?php endif; ?>
-                            </label>
-                            <div class="check-col">
-                                <input type="checkbox"
-                                       id="chk-shiny-<?= $safeId ?>"
-                                       onchange="saveCaught(this,'<?= $safeId ?>',<?= $speciesID ?>,'<?= $pokedexID ?>','shiny')"
-                                       <?= $formShiny ? 'checked' : '' ?>>
-                                <span class="lbl-shiny">✨ Shiny</span>
-                            </div>
+                <div class="sprites-row">
+                    <!-- Sprite normal -->
+                    <div class="sprite-col">
+                        <label class="sprite-label" for="chk-normal-<?= $safeId ?>">
+                            <?php if ($row['sprite']): ?>
+                                <img src="<?= htmlspecialchars($row['sprite']) ?>"
+                                     class="poke-img" alt="<?= $altName ?>">
+                            <?php else: ?><?= $noSprite ?><?php endif; ?>
+                        </label>
+                        <div class="check-col">
+                            <input type="checkbox"
+                                   id="chk-normal-<?= $safeId ?>"
+                                   onchange="saveCaught(this,'<?= $safeId ?>','<?= $pokedexID ?>','caught')"
+                                   <?= $fp['caught'] ? 'checked' : '' ?>>
+                            <span class="lbl-normal">Normal</span>
                         </div>
                     </div>
-                    <?php if ($showAlpha): ?>
-                    <div class="alpha-row check-col">
-                        <input type="checkbox"
-                               id="chk-alpha-<?= $safeId ?>"
-                               onchange="saveCaught(this,'<?= $safeId ?>',<?= $speciesID ?>,'<?= $pokedexID ?>','alpha')"
-                               <?= $formAlpha ? 'checked' : '' ?>>
-                        <span class="lbl-alpha">⬆ Alpha
-                            <span class="alpha-help"
-                                  data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="« Alpha » est le terme générique. Inclut aussi les Pokémon Baron (Légendes Arceus) et les Pokémon puissants de taille XXL dans EV.">?</span>
-                        </span>
+
+                    <!-- Sprite shiny -->
+                    <div class="sprite-col">
+                        <label class="sprite-label" for="chk-shiny-<?= $safeId ?>">
+                            <?php if ($row['shiny_sprite']): ?>
+                                <img src="<?= htmlspecialchars($row['shiny_sprite']) ?>"
+                                     class="poke-img shiny-sprite" alt="<?= $altName ?> shiny">
+                            <?php else: ?>
+                                <div class="text-muted text-center" style="font-size:.65rem;line-height:1.2;padding:4px 0;cursor:pointer">sprite shiny<br>non disponible</div>
+                            <?php endif; ?>
+                        </label>
+                        <div class="check-col">
+                            <input type="checkbox"
+                                   id="chk-shiny-<?= $safeId ?>"
+                                   onchange="saveCaught(this,'<?= $safeId ?>','<?= $pokedexID ?>','shiny')"
+                                   <?= $fp['shiny'] ? 'checked' : '' ?>>
+                            <span class="lbl-shiny">✨ Shiny</span>
+                        </div>
                     </div>
-                    <?php endif; ?>
                 </div>
-                <?php endforeach; ?>
+                <?php if ($showAlpha): ?>
+                <div class="alpha-row check-col">
+                    <input type="checkbox"
+                           id="chk-alpha-<?= $safeId ?>"
+                           onchange="saveCaught(this,'<?= $safeId ?>','<?= $pokedexID ?>','alpha')"
+                           <?= $fp['alpha'] ? 'checked' : '' ?>>
+                    <span class="lbl-alpha">⬆ Alpha
+                        <span class="alpha-help"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="« Alpha » est le terme générique. Inclut aussi les Pokémon Baron (Légendes Arceus) et les Pokémon puissants de taille XXL dans EV.">?</span>
+                    </span>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     <?php endforeach; ?>
@@ -347,12 +300,11 @@ foreach ($species as $sid => $data) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// formPid  = ID de la forme (ex: "154_m")  → envoyé à la BDD et utilisé pour les IDs HTML
-// speciesId = ID de l'espèce (ex: 154)     → utilisé pour trouver la carte et recalculer les compteurs
-function saveCaught(checkbox, formPid, speciesId, pokedexID, type) {
+// formPid = ID de la forme (ex: "154_m" ou "26_alolan") → envoyé à la BDD et utilisé pour les IDs HTML
+function saveCaught(checkbox, formPid, pokedexID, type) {
     const val = checkbox.checked ? 1 : 0;
 
-    updateCardStyle(speciesId);
+    updateCardStyle(formPid);
     recalcCounters();
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -374,7 +326,7 @@ function saveCaught(checkbox, formPid, speciesId, pokedexID, type) {
                 console.error("Erreur sauvegarde :", data.error);
                 alert("Erreur lors de la sauvegarde :\n" + data.error);
                 checkbox.checked = !checkbox.checked;
-                updateCardStyle(speciesId);
+                updateCardStyle(formPid);
                 recalcCounters();
             }
         }
@@ -382,13 +334,13 @@ function saveCaught(checkbox, formPid, speciesId, pokedexID, type) {
     .catch(err => console.error("Erreur réseau :", err));
 }
 
-function updateCardStyle(speciesId) {
-    const card = document.getElementById('card-' + speciesId);
+function updateCardStyle(formPid) {
+    const card = document.getElementById('card-' + formPid);
     if (!card) return;
-    const normalBoxes = card.querySelectorAll('[id^="chk-normal-"]');
-    const shinyBoxes  = card.querySelectorAll('[id^="chk-shiny-"]');
-    const hasCaught   = [...normalBoxes].some(cb => cb.checked);
-    const hasShiny    = [...shinyBoxes].some(cb => cb.checked);
+    const normalBox = card.querySelector('[id^="chk-normal-"]');
+    const shinyBox  = card.querySelector('[id^="chk-shiny-"]');
+    const hasCaught = normalBox && normalBox.checked;
+    const hasShiny  = shinyBox  && shinyBox.checked;
 
     card.classList.remove('normal', 'shiny', 'both');
     if (hasCaught && hasShiny) card.classList.add('both');
