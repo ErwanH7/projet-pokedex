@@ -54,6 +54,12 @@ if ($isLoggedIn) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="https://feedeko.timdidelot.fr/widget.js" data-api-key="fw_c5484d61c80c4047bada0949ab973c6a" defer></script>
+    <script
+        src="https://chateko.timdidelot.fr/widget.js"
+        data-bot-id="bot-o7kp7zk"
+        data-api-host="https://chateko.timdidelot.fr"
+        defer>
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
